@@ -1,0 +1,33 @@
+unit Maps;
+
+interface
+
+type
+  TAuditory = record
+    X, Y: integer;
+    Num: integer;
+    case isSuf: boolean of
+      true: (Suf: char);
+  end;
+  TFloor = array of TAuditory;
+  TBuilding = array of TFloor;
+  TUni = Array of TBuilding;
+  TMap = Array[1..250, 1..250]of Integer;
+  TBuildingMap = Array of TMap;
+  TUniMap = Array of TBuildingMap;
+
+
+var
+  BSUIR: TUni;
+
+implementation
+
+var
+  Building: TBuilding;
+  Floor: TFloor;
+
+initialization
+
+
+
+end.

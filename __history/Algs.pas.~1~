@@ -1,0 +1,17 @@
+unit Algs;
+
+interface
+
+uses
+  Maps;
+
+function ValidAud(Aud: String): TAuditory;
+
+implementation
+
+function ValidAud(Aud: String): TAuditory;
+begin
+
+end;
+
+end.

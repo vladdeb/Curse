@@ -1,0 +1,9 @@
+unit Draw;
+
+interface
+
+procedure DrawMap();
+
+implementation
+
+end.

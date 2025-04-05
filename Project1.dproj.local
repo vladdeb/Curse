@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.568,C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.131,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.dfm=C:\Users\Lenovo\Desktop\Курсач\код\Curse\ClassMenu.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.083,=C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.791,C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.791,C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.565,C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.538,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.845,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.020,=C:\Users\Lenovo\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.131,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\ClassMenu.pas</Transaction>
+    <Transaction>2025.03.31 22:27:19.236,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>2025.03.31 22:32:18.599,C:\Users\Lenovo\Desktop\Курсач\код\Curse\PathMenu.dfm=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.dfm</Transaction>
+    <Transaction>2025.03.31 22:32:18.599,C:\Users\Lenovo\Desktop\Курсач\код\Curse\PathMenu.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
