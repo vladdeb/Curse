@@ -56,9 +56,9 @@ begin
   ind := length(Aud) - 2;
   if (Aud[ind] < '0') or (Aud[ind] > '9') then
   begin
-    Dec(ind);
     isSuf := true;
     Suf := Aud[ind];
+    Dec(ind);
   end;
   val(Copy(Aud, 1, ind), Num, code);
   if (result.Building > Length(Uni)) or (result.Floor > Length(Uni[result.Building - 1])) then
@@ -98,11 +98,12 @@ begin
         l := m + 1;
       if not isSuf and CurFloor[m].isSuf then
         r := m;
-    end;
-    if temp < Num then
-      l := m + 1
+    end
     else
-      r := m;
+      if temp < Num then
+        l := m + 1
+      else
+        r := m;
   end;
   if r - l = 1 then
   begin

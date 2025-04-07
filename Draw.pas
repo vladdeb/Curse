@@ -30,6 +30,7 @@ begin
   with Form.Canvas do
   begin
     Pen.Color := clRed;
+    Pen.Width := 5;
     MoveTo(X - CrossSize, Y - CrossSize);
     LineTo(X + CrossSize, Y + CrossSize);
 

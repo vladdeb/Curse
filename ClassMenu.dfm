@@ -12,13 +12,13 @@ object mnClassFind: TmnClassFind
   Font.Style = []
   Position = poDefault
   OnClick = ShowPos
-  OnClose = Close
+  OnClose = Close1
   OnCreate = Init
   OnPaint = Paint
   TextHeight = 15
   object Label1: TLabel
-    Left = 36
-    Top = 184
+    Left = 60
+    Top = 264
     Width = 34
     Height = 15
     Caption = 'Label1'

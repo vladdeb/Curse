@@ -39,7 +39,7 @@ end;
 
 procedure TmnMain.butCloseClick(Sender: TObject);
 begin
-  Halt;
+  Close;
 end;
 
 procedure TmnMain.butPathMenuClick(Sender: TObject);

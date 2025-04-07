@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Draw, Algs, Maps;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Draw, Algs, Maps,
+  Vcl.CheckLst, Vcl.Menus;
 
 type
   TmnClassFind = class(TForm)
@@ -13,7 +14,7 @@ type
     Label1: TLabel;
     AudIn: TEdit;
     procedure butMainMenuClick(Sender: TObject);
-    procedure Close(Sender: TObject; var Action: TCloseAction);
+    procedure Close1(Sender: TObject; var Action: TCloseAction);
     procedure Init(Sender: TObject);
     procedure Paint(Sender: TObject);
     procedure FormClick(Sender: TObject);
@@ -59,11 +60,12 @@ begin
   else
   begin
     CurMap := Char(AudPos.Building + 48) + '.' + Char(AudPos.Floor + 48) + '.bmp';
+    DrawMap(self, 150, 0, CurMap);
     DrawCross(self, AudPos.Pos.X + 150, AudPos.Pos.Y);
   end;
 end;
 
-procedure TmnClassFind.Close(Sender: TObject; var Action: TCloseAction);
+procedure TmnClassFind.Close1(Sender: TObject; var Action: TCloseAction);
 begin
   Halt;
 end;
