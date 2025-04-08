@@ -7,7 +7,8 @@ uses
   PathMenu in 'PathMenu.pas' {mnPathFind},
   Maps in 'Maps.pas',
   Draw in 'Draw.pas',
-  Algs in 'Algs.pas';
+  Algs in 'Algs.pas',
+  Graph in 'Graph.pas';
 
 {$R *.res}
 

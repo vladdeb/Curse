@@ -53,6 +53,7 @@ begin
   if not ValidAud(AudIn.Text) then
   begin
     AudIn.Text := 'Некорректный формат';
+    Exit;
   end;
   AudPos := SearchAud(BSUIR, AudIn.Text, Found);
   if not Found then

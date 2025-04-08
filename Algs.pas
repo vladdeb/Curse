@@ -13,10 +13,15 @@ implementation
 
 function ValidAud(const Aud: String): boolean;
 var
-  DashPos, n, ind, temp1, temp2: integer;
+  n, temp1, temp2: integer;
 begin
   result := true;
   n := Length(Aud);
+  if n < 5 then
+  begin
+    result := False;
+    Exit;
+  end;
   if Aud[n - 1] <> '-' then
   begin
     result := False;
@@ -26,25 +31,20 @@ begin
   begin
     Exit;
   end;
-  ind := n - 2;
-  if (ind > 0) and (Aud[ind] < '0') or (Aud[ind] > '9') then
-    Dec(ind);
-  if (ind > 0) then
+
+  val(Copy(Aud, 1, 3), temp1, temp2);
+  if temp2 <> 0 then
   begin
-    val(Copy(Aud, 1, ind), temp1, temp2);
-    if temp2 <> 0 then
-    begin
-      result := False;
-      Exit;
-    end;
+    result := False;
+    Exit;
   end;
 end;
 
 function SearchAud(Uni: TUni; const Aud: String; var Found: boolean): TUniPos;
 var
-  Num, ind, code: Integer;
+  Num, code: Integer;
   isSuf: Boolean;
-  Suf: Char;
+  Suf: String;
   CurFloor: TFloor;
   l, r, m, temp: integer;
 
@@ -53,14 +53,13 @@ begin
   isSuf := false;
   result.Building := Ord(Aud[length(Aud)]) - Ord('0');
   result.Floor := Ord(Aud[1]) - Ord('0');
-  ind := length(Aud) - 2;
-  if (Aud[ind] < '0') or (Aud[ind] > '9') then
+
+  val(Copy(Aud, 1, 3), Num, code);
+  if length(Aud) > 5 then
   begin
     isSuf := true;
-    Suf := Aud[ind];
-    Dec(ind);
+    Suf := Copy(Aud, 4, Length(Aud) - 5);
   end;
-  val(Copy(Aud, 1, ind), Num, code);
   if (result.Building > Length(Uni)) or (result.Floor > Length(Uni[result.Building - 1])) then
   begin
     Found := false;
@@ -116,5 +115,4 @@ begin
     Found := False;
   end;
 end;
-
 end.

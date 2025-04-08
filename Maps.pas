@@ -10,10 +10,9 @@ type
   TAuditory = record
     Pos: TPoint;
     Num: integer;
-
-    constructor Create(const X, Y: integer; const ANum: integer; ASuf: Char);
-    case isSuf: boolean of
-      true: (Suf: char);
+    isSuf: boolean;
+    Suf: String;
+    constructor Create(const X, Y: integer; const ANum: integer; ASuf: String);
   end;
   TFloor = array of TAuditory;
   TBuilding = array of TFloor;
@@ -23,26 +22,19 @@ type
     Pos: TPoint;
   end;
 
-  TConnection = record
-    Node: TAuditory;
-    dist: Integer;
-  end;
-  TVertex = array of TConnection;
+  TVertex = array of TAuditory;
   TGraph = array[1..1000] of TVertex;
   TUniGraph = array of TGraph;
+  Tpath = array of TAuditory;
 
 var
   BSUIR: TUni;
 
 implementation
 
-var
-  Building: TBuilding;
-  Floor: TFloor;
-
 { TAuditory }
 
-constructor TAuditory.Create(const X, Y: integer; const ANum: integer; ASuf: Char);
+constructor TAuditory.Create(const X, Y: integer; const ANum: integer; ASuf: String);
 begin
   Pos := TPoint.Create(X, Y);
   Num := ANum;
@@ -98,6 +90,15 @@ initialization
   AddAud(BSUIR[0][0], TAuditory.Create(1117,252, 141, ' '));
   AddAud(BSUIR[0][0], TAuditory.Create(1117,131, 143, ' '));
   AddAud(BSUIR[0][0], TAuditory.Create(1117, 30, 145, ' '));
+  AddAud(BSUIR[0][0], TAuditory.Create(85, 174,    1, 'Ladderl1'));
+  AddAud(BSUIR[0][0], TAuditory.Create(120, 174,   1, 'Ladderl2'));
+  AddAud(BSUIR[0][0], TAuditory.Create(1117, 174,  1, 'Ladderr1'));
+  AddAud(BSUIR[0][0], TAuditory.Create(1077, 174,  1, 'Ladderr2'));
+  AddAud(BSUIR[0][0], TAuditory.Create(600,  435,  1, 'Ladderc1'));
+  AddAud(BSUIR[0][0], TAuditory.Create(600,  378,  1, 'Ladderc2'));
+  AddAud(BSUIR[0][0], TAuditory.Create(85,   435,  1, 'Anglel'));
+  AddAud(BSUIR[0][0], TAuditory.Create(1117, 435,  1, 'Angler'));
+  AddAud(BSUIR[0][0], TAuditory.Create(600,  489,  1, 'Exit'));
 
 
   //1st BUILDING 2ND FLOOR
@@ -147,4 +148,76 @@ initialization
   AddAud(BSUIR[0][1], TAuditory.Create(1118,179,237, ' '));
   AddAud(BSUIR[0][1], TAuditory.Create(1118,143,239, ' '));
   AddAud(BSUIR[0][1], TAuditory.Create(1118, 25,241, ' '));
+  AddAud(BSUIR[0][1], TAuditory.Create(81, 174,    2, 'Ladderl1'));
+  AddAud(BSUIR[0][1], TAuditory.Create(120, 174,   2, 'Ladderl2'));
+  AddAud(BSUIR[0][1], TAuditory.Create(1118, 174,  2, 'Ladderr1'));
+  AddAud(BSUIR[0][1], TAuditory.Create(1077, 174,  2, 'Ladderr2'));
+  AddAud(BSUIR[0][1], TAuditory.Create(600,  438,  2, 'Ladderc1'));
+  AddAud(BSUIR[0][1], TAuditory.Create(600,  378,  2, 'Ladderc2'));
+  AddAud(BSUIR[0][1], TAuditory.Create(81,   438,  2, 'Anglel'));
+  AddAud(BSUIR[0][1], TAuditory.Create(1118, 438,  2, 'Angler'));
+
+  //3RD FLOOR 1ST BUILDING
+  SetLength(Bsuir[0][2], 0);
+
+  AddAud(BSUIR[0][2], TAuditory.Create(111, 21,  300, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(105, 134, 301, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create(107, 97,  301, 'á'));
+  AddAud(BSUIR[0][2], TAuditory.Create(105, 134, 302, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(102, 167, 303, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(97,  274, 304, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(100, 203, 305, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(187, 425, 306, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(96,  246, 307, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(229, 425, 308, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(91,  350, 309, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(263, 425, 310, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(136, 425, 311, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create( 88, 425, 311, 'á'));
+  AddAud(BSUIR[0][2], TAuditory.Create( 40, 425, 311, 'â'));
+  AddAud(BSUIR[0][2], TAuditory.Create(294, 425, 312, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(191, 425, 313, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(367, 425, 314, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(231, 425, 315, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(295, 425, 317, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(507, 425, 318, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(366, 425, 319, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(738, 430, 320, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(470, 428, 321, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(809, 430, 322, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(847, 430, 324, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(914, 430, 326, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(948, 430, 328, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(704, 430, 329, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(739, 430, 329, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create(986, 430, 330, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(777, 430, 331, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1026, 435,332, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(878, 435, 333, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(985, 425, 333, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 289,334, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 215,336, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 435,337, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1072, 435,337, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 147,338, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1161, 435,339, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 34, 340, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 290,343, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 256,345, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 147,347, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 181,347, 'à'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115,  33,349, ' '));
+  AddAud(BSUIR[0][2], TAuditory.Create(104, 167,   3, 'Ladderl1'));
+  AddAud(BSUIR[0][2], TAuditory.Create(120, 167,   3, 'Ladderl2'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 179,  3, 'Ladderr1'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1077, 179,  3, 'Ladderr2'));
+  AddAud(BSUIR[0][2], TAuditory.Create(600,  430,  3, 'Ladderc1'));
+  AddAud(BSUIR[0][2], TAuditory.Create(600,  378,  3, 'Ladderc2'));
+  AddAud(BSUIR[0][2], TAuditory.Create(88,   425,  3, 'Anglel'));
+  AddAud(BSUIR[0][2], TAuditory.Create(1115, 435,  3, 'Angler'));
+
+
+
+
+
 end.
