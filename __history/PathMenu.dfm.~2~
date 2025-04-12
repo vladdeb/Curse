@@ -1,0 +1,50 @@
+object mnPathFind: TmnPathFind
+  Left = 0
+  Top = 0
+  Caption = 'mnPathFind'
+  ClientHeight = 704
+  ClientWidth = 1044
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnClose = Close
+  TextHeight = 15
+  object start: TMemo
+    Left = 0
+    Top = 8
+    Width = 97
+    Height = 25
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 0
+  end
+  object butSearch: TButton
+    Left = 0
+    Top = 70
+    Width = 97
+    Height = 25
+    Caption = 'butSearch'
+    TabOrder = 1
+  end
+  object butMainMenu: TButton
+    Left = 0
+    Top = 101
+    Width = 97
+    Height = 25
+    Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
+    TabOrder = 2
+    OnClick = butMainMenuClick
+  end
+  object Finish: TMemo
+    Left = 0
+    Top = 39
+    Width = 97
+    Height = 25
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 3
+  end
+end

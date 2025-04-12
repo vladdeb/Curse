@@ -12,28 +12,28 @@ object mnMain: TmnMain
   Font.Style = []
   TextHeight = 15
   object butClose: TButton
-    Left = 256
-    Top = 368
-    Width = 201
-    Height = 42
+    Left = 224
+    Top = 352
+    Width = 199
+    Height = 34
     Caption = #1042#1099#1093#1086#1076
     TabOrder = 0
     OnClick = butCloseClick
   end
   object butPathMenu: TButton
-    Left = 256
-    Top = 320
-    Width = 201
-    Height = 42
+    Left = 224
+    Top = 312
+    Width = 199
+    Height = 34
     Caption = #1053#1072#1081#1090#1080' '#1087#1091#1090#1100
     TabOrder = 1
     OnClick = butPathMenuClick
   end
   object butClassMenu: TButton
-    Left = 256
+    Left = 224
     Top = 272
-    Width = 201
-    Height = 42
+    Width = 199
+    Height = 34
     Caption = #1053#1072#1081#1090#1080' '#1072#1091#1076#1080#1090#1086#1088#1080#1102
     TabOrder = 2
     OnClick = butClassMenuClick

@@ -4,17 +4,30 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage, Maps;
 
 type
   TmnPathFind = class(TForm)
-    start: TMemo;
-    butSearch: TButton;
-    butMainMenu: TButton;
-    Finish: TMemo;
+    pnMain: TPanel;
+    butFind: TButton;
+    butMain: TButton;
+    edStart: TEdit;
+    edEnd: TEdit;
+    Panel2: TPanel;
+    lblBuilding: TLabel;
+    cmbBuilding: TComboBox;
+    Panel3: TPanel;
+    lblFloor: TLabel;
+    cmbFloor: TComboBox;
+    imMap: TImage;
     procedure butMainMenuClick(Sender: TObject);
     procedure Close(Sender: TObject; var Action: TCloseAction);
+    procedure Init(Sender: TObject);
+    procedure cmbBuildingChange(Sender: TObject);
+    procedure cmbFloorChange(Sender: TObject);
   private
+    curMap: string;
     { Private declarations }
   public
     { Public declarations }
@@ -39,6 +52,46 @@ end;
 procedure TmnPathFind.Close(Sender: TObject; var Action: TCloseAction);
 begin
   Halt;
+end;
+
+procedure TmnPathFind.cmbBuildingChange(Sender: TObject);
+begin
+  cmbFloor.Clear;
+  if cmbBuilding.Text <> 'Корпус' then
+  begin
+    for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+      cmbFloor.AddItem(Char(i + 48), nil);
+    cmbFloor.ItemIndex := 0;
+    CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    imMap.Picture.LoadFromFile(curMap);
+  end;
+end;
+
+procedure TmnPathFind.cmbFloorChange(Sender: TObject);
+begin
+  CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+  imMap.Picture.LoadFromFile(curMap);
+end;
+
+procedure TmnPathFind.Init(Sender: TObject);
+begin
+  Show;
+  curMap := '1.1.bmp';
+  pnMain.Width := 200;
+  imMap.Picture.LoadFromFile(curMap);
+  SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
+  cmbBuilding.AddItem('1', nil);
+  //cmbBuilding.AddItem('2', nil);
+  //cmbBuilding.AddItem('3', nil);
+  //cmbBuilding.AddItem('4', nil);
+  //cmbBuilding.AddItem('5', nil);
+  cmbBuilding.ItemIndex := 0;
+  for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+    cmbFloor.AddItem(Char(i + 48), nil);
+  cmbFloor.ItemIndex := 0;
+
+  ClientWidth := 1400;
+  ClientHeight := 600;
 end;
 
 end.

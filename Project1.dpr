@@ -8,7 +8,8 @@ uses
   Maps in 'Maps.pas',
   Draw in 'Draw.pas',
   Algs in 'Algs.pas',
-  Graph in 'Graph.pas';
+  Graph in 'Graph.pas',
+  Building1 in 'Building1.pas';
 
 {$R *.res}
 
@@ -16,7 +17,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TmnMain, mnMain);
-  Application.CreateForm(TmnClassFind, mnClassFind);
-  Application.CreateForm(TmnPathFind, mnPathFind);
   Application.Run;
 end.

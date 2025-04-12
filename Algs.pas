@@ -6,11 +6,67 @@ uses
   Maps;
 
 function ValidAud(const Aud: String): boolean;
-
 function SearchAud(Uni: TUni; const Aud: String; var Found: boolean): TUniPos;
 
 implementation
 
+type
+  PQueueItem = ^TQueueItem;
+  TQueueItem = record
+    Auditory: TAuditory;
+    next: PQueueItem;
+  end;
+
+//QUEUE FUNCTIONS
+procedure Clear(head: PQueueItem);
+var
+  temp: PQueueItem;
+begin
+  if head <> nil then
+  begin
+    temp := head;
+    while head <> nil do
+    begin
+      temp := head;
+      head := temp^.next;
+      Dispose(temp);
+    end;
+  end;
+end;
+
+procedure Insert(head: PQueueItem; val: TAuditory);
+var
+  temp, newItem: PQueueItem;
+begin
+  temp := head;
+  while (temp^.next <> nil) and (val < temp^.next^.Auditory) do
+    temp := temp^.next;
+  New(newItem);
+  newItem^.Auditory := val;
+  newItem^.next := temp^.next;
+  temp^.next := newItem;
+end;
+
+function GetFront(head: PQueueItem): TAuditory;
+begin
+  if head^.next <> nil then
+    result := head^.next^.Auditory;
+end;
+
+procedure Pop(head: PQueueItem);
+var
+  temp: PQueueItem;
+begin
+  if head^.next <> nil then
+  begin
+    temp := head^.next;
+    head^.next := temp^.next;
+    Dispose(temp);
+  end;
+end;
+
+
+//INPUT CHECK
 function ValidAud(const Aud: String): boolean;
 var
   n, temp1, temp2: integer;
@@ -40,17 +96,21 @@ begin
   end;
 end;
 
+
+//SEARCH OF AUDITORY
 function SearchAud(Uni: TUni; const Aud: String; var Found: boolean): TUniPos;
 var
   Num, code: Integer;
   isSuf: Boolean;
   Suf: String;
   CurFloor: TFloor;
-  l, r, m, temp: integer;
+  l, r, m: integer;
+  temp, Target: TAuditory;
 
 begin
   Found := false;
   isSuf := false;
+  Suf := ' ';
   result.Building := Ord(Aud[length(Aud)]) - Ord('0');
   result.Floor := Ord(Aud[1]) - Ord('0');
 
@@ -60,49 +120,28 @@ begin
     isSuf := true;
     Suf := Copy(Aud, 4, Length(Aud) - 5);
   end;
-  if (result.Building > Length(Uni)) or (result.Floor > Length(Uni[result.Building - 1])) then
+  if (result.Building > Length(Uni)) or (result.Floor > High(Uni[result.Building - 1])) then
   begin
     Found := false;
     Exit;
   end;
-  CurFloor := Uni[result.Building - 1][result.Floor - 1];
+  CurFloor := Uni[result.Building - 1][result.Floor];
   l := 0;
   r := length(CurFloor);
+  Target := TAuditory.Create(0, 0, Num, Suf, result.Building);
   while (r - l > 1) and not Found do
   begin
     m := (l + r) div 2;
-    temp := CurFloor[m].Num;
-    if temp = Num then
+    temp := CurFloor[m];
+    if temp = Target then
     begin
-      if not isSuf and  not CurFloor[m].isSuf then
-      begin
-        result.Pos := CurFloor[m].Pos;
-        Found := true;
-        Exit;
-      end;
-      if (isSuf and CurFloor[m].isSuf) then
-      begin
-        if Suf = CurFloor[m].Suf then
-        begin
-          result.Pos := CurFloor[m].Pos;
-          Found := true;
-          Exit;
-        end;
-        if Suf < CurFloor[m].Suf then
-          r := m
-        else
-          l := m + 1;
-      end;
-      if isSuf and not curFloor[m].isSuf then
-        l := m + 1;
-      if not isSuf and CurFloor[m].isSuf then
-        r := m;
-    end
+      Found := true;
+      result.Pos := temp.Pos;
+    end;
+    if temp < Target then
+      l := m + 1
     else
-      if temp < Num then
-        l := m + 1
-      else
-        r := m;
+      r := m;
   end;
   if r - l = 1 then
   begin
@@ -115,4 +154,6 @@ begin
     Found := False;
   end;
 end;
+
+
 end.

@@ -32,21 +32,17 @@ implementation
 
 procedure TmnMain.butClassMenuClick(Sender: TObject);
 begin
-  mnClassFind.Visible := true;
-  mnClassFind.Prev := mnMain;
-  mnMain.Visible := false;
+  Application.CreateForm(TmnClassFind, mnClassFind);
 end;
 
 procedure TmnMain.butCloseClick(Sender: TObject);
 begin
-  Close;
+  Halt;
 end;
 
 procedure TmnMain.butPathMenuClick(Sender: TObject);
 begin
-  mnPathFind.Visible := true;
-  mnPathFind.Prev := mnMain;
-  mnMain.Visible := false;
+  Application.CreateForm(TmnPathFind, mnPathFind);
 end;
 
 end.
