@@ -35,19 +35,23 @@ begin
   i := 0;
   with Canvas do
   begin
+    Pen.Width := 3;
     pen.Color := clRed;
     while (i < High(Path)) and not((path[i].Floor = Floor) and (path[i].Building = Building)) do
       Inc(i);
-    if i < High(Path) then
+    if i <= High(Path) then
     begin
       MoveTo(path[i].Pos.X, path[i].Pos.Y);
       Inc(i);
+      if I <= High(Path) then
+        LineTo(path[i].Pos.X, path[i].Pos.Y);
     end;
-    while (i < High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
+    while (i <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
     begin
-      LineTo(path[i].Pos.X, path[i].Pos.Y);
       MoveTo(path[i].Pos.X, path[i].Pos.Y);
       Inc(i);
+      if I <= High(Path) then
+        LineTo(path[i].Pos.X, path[i].Pos.Y);
     end;
   end;
 

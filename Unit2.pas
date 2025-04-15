@@ -18,7 +18,7 @@ type
   private
     { Private declarations }
   public
-    { Public declarations }
+    { Public declarations }A: TStrings;
   end;
 
 var

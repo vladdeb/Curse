@@ -10,7 +10,6 @@ object mnPathFind: TmnPathFind
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OnClose = Close
   OnCreate = Init
   TextHeight = 15
   object imMap: TImage
@@ -7429,9 +7428,8 @@ object mnPathFind: TmnPathFind
     Height = 704
     Align = alRight
     TabOrder = 0
-    ExplicitLeft = 832
-    ExplicitTop = 344
-    ExplicitHeight = 41
+    ExplicitLeft = 857
+    ExplicitHeight = 696
     object butFind: TButton
       Left = 1
       Top = 47
@@ -7440,7 +7438,7 @@ object mnPathFind: TmnPathFind
       Align = alTop
       Caption = 'butSearch'
       TabOrder = 0
-      ExplicitTop = 51
+      OnClick = butFindClick
     end
     object butMain: TButton
       Left = 1
@@ -7450,10 +7448,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
       TabOrder = 1
-      OnClick = butMainMenuClick
-      ExplicitLeft = 8
-      ExplicitTop = 109
-      ExplicitWidth = 97
     end
     object edStart: TEdit
       Left = 1
@@ -7463,9 +7457,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       TabOrder = 2
       Text = 'edStart'
-      ExplicitLeft = 8
-      ExplicitTop = 0
-      ExplicitWidth = 121
     end
     object edEnd: TEdit
       Left = 1
@@ -7475,8 +7466,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       TabOrder = 3
       Text = 'edEnd'
-      ExplicitLeft = 32
-      ExplicitWidth = 121
     end
     object Panel2: TPanel
       Left = 1
@@ -7487,7 +7476,6 @@ object mnPathFind: TmnPathFind
       BevelOuter = bvNone
       Caption = 'Init'
       TabOrder = 4
-      ExplicitTop = 93
       object lblBuilding: TLabel
         Left = 0
         Top = 0
@@ -7516,9 +7504,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 5
-      ExplicitLeft = 6
-      ExplicitTop = 102
-      ExplicitWidth = 150
       object lblFloor: TLabel
         Left = 0
         Top = 0

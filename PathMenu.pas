@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, Maps;
+  Vcl.Imaging.pngimage, Maps, Algs, Draw;
 
 type
   TmnPathFind = class(TForm)
@@ -21,17 +21,17 @@ type
     lblFloor: TLabel;
     cmbFloor: TComboBox;
     imMap: TImage;
-    procedure butMainMenuClick(Sender: TObject);
-    procedure Close(Sender: TObject; var Action: TCloseAction);
     procedure Init(Sender: TObject);
     procedure cmbBuildingChange(Sender: TObject);
     procedure cmbFloorChange(Sender: TObject);
+    procedure butFindClick(Sender: TObject);
   private
     curMap: string;
+    Path: TPath;
+    Building, Floor: Integer;
     { Private declarations }
   public
     { Public declarations }
-    Prev: TForm;
   end;
 
 var
@@ -42,16 +42,45 @@ implementation
 {$R *.dfm}
 
 
-
-procedure TmnPathFind.butMainMenuClick(Sender: TObject);
+procedure TmnPathFind.butFindClick(Sender: TObject);
+var
+  foundst, Foundfin, code, start, finish: integer;
+  SStart, SEnd: string;
 begin
-  Prev.Visible := true;
-  Visible := false;
-end;
-
-procedure TmnPathFind.Close(Sender: TObject; var Action: TCloseAction);
-begin
-  Halt;
+  if not ValidAud(edStart.Text) then
+  begin
+    edStart.Text := 'Некорректный формат';
+    Exit;
+  end;
+  if not ValidAud(edEnd.Text) then
+  begin
+    edEnd.Text := 'Некорректный формат';
+    Exit;
+  end;
+  SearchAud(BSUIR, edStart.Text, Foundst);
+  if Foundst = -1 then
+  begin
+    edStart.Text := 'Аудитория не найдена';
+    exit;
+  end;
+  SearchAud(BSUIR, edEnd.Text, Foundfin);
+  if Foundfin = -1 then
+  begin
+    edEnd.Text := 'Аудитория не найдена';
+    exit;
+  end;
+  SStart := edStart.Text;
+  SEnd := edEnd.Text;
+  if SEnd[Length(SEnd)] = SStart[Length(SStart)] then
+  begin
+    building := StrToInt(SEnd[Length(SEnd)]);
+    start := FoundSt + 100 * StrToInt(SStart[1]);
+    finish := Foundfin + 100 * StrToInt(SEnd[1]);
+    Path := SearchPath(BSUIR, building, BSUIRGraph[building - 1], start, finish);
+    cmbBuilding.ItemIndex := building - 1;
+    cmbFloor.ItemIndex := start div 100 - 1;
+    DrawPath(imMap.Canvas, building, start div 100, Path);
+  end;
 end;
 
 procedure TmnPathFind.cmbBuildingChange(Sender: TObject);
@@ -62,6 +91,8 @@ begin
     for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
       cmbFloor.AddItem(Char(i + 48), nil);
     cmbFloor.ItemIndex := 0;
+    Floor := StrToInt(cmbFloor.Text);
+    building := StrToInt(cmbBuilding.Text);
     CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
     imMap.Picture.LoadFromFile(curMap);
   end;
@@ -71,6 +102,8 @@ procedure TmnPathFind.cmbFloorChange(Sender: TObject);
 begin
   CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
   imMap.Picture.LoadFromFile(curMap);
+  Floor := StrToInt(cmbFloor.Text);
+  DrawPath(imMap.Canvas, building, Floor, Path);
 end;
 
 procedure TmnPathFind.Init(Sender: TObject);

@@ -48,14 +48,13 @@ Const
 
 procedure TmnClassFind.butMainMenuClick(Sender: TObject);
 begin
-  Visible := false;
-  Prev.Visible := true;
+  Close;
 end;
 
 procedure TmnClassFind.butSearchClick(Sender: TObject);
 var
   AudPos: TUniPos;
-  Found: Boolean;
+  Found: Integer;
 begin
   if not ValidAud(AudIn.Text) then
   begin
@@ -63,7 +62,7 @@ begin
     Exit;
   end;
   AudPos := SearchAud(BSUIR, AudIn.Text, Found);
-  if not Found then
+  if Found = -1 then
     AudIn.Text := 'Аудитория не найдена'
   else
   begin
@@ -108,6 +107,7 @@ begin
   pnSearch.Width := 200;
   imMap.Picture.LoadFromFile(curMap);
   SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
+  SendMessage(GetWindow(cmbFloor.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
   cmbBuilding.AddItem('1', nil);
   //cmbBuilding.AddItem('2', nil);
   //cmbBuilding.AddItem('3', nil);

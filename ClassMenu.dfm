@@ -7434,6 +7434,7 @@ object mnClassFind: TmnClassFind
     BevelOuter = bvNone
     TabOrder = 0
     ExplicitLeft = 1256
+    ExplicitHeight = 642
     object Label1: TLabel
       Left = 60
       Top = 264
@@ -7450,8 +7451,6 @@ object mnClassFind: TmnClassFind
       Caption = #1085#1072#1081#1090#1080
       TabOrder = 0
       OnClick = butSearchClick
-      ExplicitLeft = 16
-      ExplicitTop = 29
     end
     object AudIn: TEdit
       Left = 0
@@ -7461,7 +7460,6 @@ object mnClassFind: TmnClassFind
       Align = alTop
       TabOrder = 1
       Text = #1053#1086#1084#1077#1088'-'#1050#1086#1088#1087#1091#1089
-      ExplicitLeft = 16
     end
     object butMainMenu: TButton
       Left = 0
@@ -7472,9 +7470,6 @@ object mnClassFind: TmnClassFind
       Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
       TabOrder = 2
       OnClick = butMainMenuClick
-      ExplicitLeft = 1
-      ExplicitTop = 105
-      ExplicitWidth = 172
     end
     object pnBuilding: TPanel
       Left = 0
@@ -7512,8 +7507,6 @@ object mnClassFind: TmnClassFind
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 4
-      ExplicitLeft = 6
-      ExplicitTop = 102
       object lblFloor: TLabel
         Left = 0
         Top = 0
@@ -7532,7 +7525,6 @@ object mnClassFind: TmnClassFind
         TabOrder = 0
         Text = 'cmbFloor'
         OnChange = cmbFloorChange
-        ExplicitTop = 5
       end
     end
   end

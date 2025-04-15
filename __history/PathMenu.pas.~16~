@@ -1,0 +1,125 @@
+unit PathMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage, Maps, Algs, Draw;
+
+type
+  TmnPathFind = class(TForm)
+    pnMain: TPanel;
+    butFind: TButton;
+    butMain: TButton;
+    edStart: TEdit;
+    edEnd: TEdit;
+    Panel2: TPanel;
+    lblBuilding: TLabel;
+    cmbBuilding: TComboBox;
+    Panel3: TPanel;
+    lblFloor: TLabel;
+    cmbFloor: TComboBox;
+    imMap: TImage;
+    procedure Init(Sender: TObject);
+    procedure cmbBuildingChange(Sender: TObject);
+    procedure cmbFloorChange(Sender: TObject);
+    procedure butFindClick(Sender: TObject);
+  private
+    curMap: string;
+    Path: TPath;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  mnPathFind: TmnPathFind;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TmnPathFind.butFindClick(Sender: TObject);
+var
+  foundst, Foundfin, bldStart, bldEnd, code, start, finish: integer;
+  SStart, SEnd: string;
+begin
+  if not ValidAud(edStart.Text) then
+  begin
+    edStart.Text := 'Некорректный формат';
+    Exit;
+  end;
+  if not ValidAud(edEnd.Text) then
+  begin
+    edEnd.Text := 'Некорректный формат';
+    Exit;
+  end;
+  SearchAud(BSUIR, edStart.Text, Foundst);
+  if Foundst = -1 then
+  begin
+    edStart.Text := 'Аудитория не найдена';
+    exit;
+  end;
+  SearchAud(BSUIR, edEnd.Text, Foundfin);
+  if Foundfin = -1 then
+  begin
+    edEnd.Text := 'Аудитория не найдена';
+    exit;
+  end;
+  SStart := edStart.Text;
+  SEnd := edEnd.Text;
+  if SEnd[Length(SEnd)] = SStart[Length(SStart)] then
+  begin
+    bldStart := StrToInt(SEnd[Length(SEnd)]);
+    start := FoundSt + 100 * StrToInt(SStart[1]);
+    finish := Foundfin + 100 * StrToInt(SEnd[1]);
+    Path := SearchPath(BSUIR, bldStart, BSUIRGraph[bldStart - 1], start, finish);
+    cmbBuilding.ItemIndex := bldStart;
+    cmbFloor.ItemIndex := start div 100;
+    DrawPath(imMap.Canvas, bldStart, start div 100, Path);
+  end;
+end;
+
+procedure TmnPathFind.cmbBuildingChange(Sender: TObject);
+begin
+  cmbFloor.Clear;
+  if cmbBuilding.Text <> 'Корпус' then
+  begin
+    for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+      cmbFloor.AddItem(Char(i + 48), nil);
+    cmbFloor.ItemIndex := 0;
+    CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    imMap.Picture.LoadFromFile(curMap);
+  end;
+end;
+
+procedure TmnPathFind.cmbFloorChange(Sender: TObject);
+begin
+  CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+  imMap.Picture.LoadFromFile(curMap);
+end;
+
+procedure TmnPathFind.Init(Sender: TObject);
+begin
+  Show;
+  curMap := '1.1.bmp';
+  pnMain.Width := 200;
+  imMap.Picture.LoadFromFile(curMap);
+  SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
+  cmbBuilding.AddItem('1', nil);
+  //cmbBuilding.AddItem('2', nil);
+  //cmbBuilding.AddItem('3', nil);
+  //cmbBuilding.AddItem('4', nil);
+  //cmbBuilding.AddItem('5', nil);
+  cmbBuilding.ItemIndex := 0;
+  for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+    cmbFloor.AddItem(Char(i + 48), nil);
+  cmbFloor.ItemIndex := 0;
+
+  ClientWidth := 1400;
+  ClientHeight := 600;
+end;
+
+end.
