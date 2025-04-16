@@ -50,7 +50,7 @@ begin
     begin
       MoveTo(path[i].Pos.X, path[i].Pos.Y);
       Inc(i);
-      if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
+      if I <= High(Path) then
         LineTo(path[i].Pos.X, path[i].Pos.Y);
     end;
   end;

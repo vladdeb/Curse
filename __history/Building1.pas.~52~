@@ -599,4 +599,141 @@ initialization
   AddEdge(BSUIR[0], BSUIRGraph[0], 347, 338);
   AddEdge(BSUIR[0], BSUIRGraph[0], 347, 340);
   AddEdge(BSUIR[0], BSUIRGraph[0], 347, 350);
+
+  //RIGHT ANGLE CONNECTIONS
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 335);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 336);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 337);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 339);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 341);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 342);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 343);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 344);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 345);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 346);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 354);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 307);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 309);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 311);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 312);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 313);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 314);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 315);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 316);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 317);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 318);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 319);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 320);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 321);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 322);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 323);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 324);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 325);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 326);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 327);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 328);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 329);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 330);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 331);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 332);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 333);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 334);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 337);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 338);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 340);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 348, 350);
+
+  //4TH FLOOR
+  //LEFT LADDER CONNECTIONS
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 400);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 401);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 402);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 403);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 404);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 405);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 407);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 447, 448);
+
+  //RIGHT LADDER CONNECTIONS
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 433);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 435);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 437);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 438);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 439);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 440);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 441);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 442);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 449, 450);
+
+  //CENTRAL LADDER CONNECTIONS
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 406);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 408);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 409);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 410);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 411);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 412);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 413);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 414);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 415);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 416);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 417);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 418);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 419);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 420);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 421);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 422);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 423);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 424);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 425);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 426);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 427);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 428);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 429);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 430);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 431);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 432);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 434);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 436);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 445, 446);
+
+
+  //LEFT ANGLE CONNECTIONS
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 400);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 401);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 402);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 403);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 404);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 405);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 407);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 406);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 408);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 409);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 410);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 411);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 412);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 413);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 414);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 415);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 416);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 417);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 418);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 419);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 420);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 421);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 422);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 423);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 424);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 425);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 426);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 427);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 428);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 429);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 430);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 431);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 432);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 434);
+  AddEdge(BSUIR[0], BSUIRGraph[0], 443, 436);
+
+  //RIGHT ANGLE CONNECTIONS
+
 end.
