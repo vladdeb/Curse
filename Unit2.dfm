@@ -3,7 +3,7 @@ object mnMain: TmnMain
   Top = 0
   Caption = 'mnMain'
   ClientHeight = 534
-  ClientWidth = 707
+  ClientWidth = 623
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

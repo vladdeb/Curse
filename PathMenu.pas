@@ -79,6 +79,8 @@ begin
     Path := SearchPath(BSUIR, building, BSUIRGraph[building - 1], start, finish);
     cmbBuilding.ItemIndex := building - 1;
     cmbFloor.ItemIndex := start div 100 - 1;
+    CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    imMap.Picture.LoadFromFile(curMap);
     DrawPath(imMap.Canvas, building, start div 100, Path);
   end;
 end;
