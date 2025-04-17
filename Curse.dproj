@@ -139,7 +139,6 @@
         <DCCReference Include="Draw.pas"/>
         <DCCReference Include="Algs.pas"/>
         <DCCReference Include="Graph.pas"/>
-        <DCCReference Include="Building1.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

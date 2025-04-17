@@ -2,17 +2,17 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>1899.12.30 00:00:00.000.932,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.359,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Draw.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.037,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Graph.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.909,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Maps.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.732,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Building1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.489,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Alsg.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Algs.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.763,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.500,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.494,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.546,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.494,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.489,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Algs.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Alsg.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.246,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Alsg.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.541,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.246,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Alsg.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.763,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.037,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Graph.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.359,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Draw.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.500,=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.732,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Building1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.909,C:\Users\Lenovo\Desktop\Курсач\код\Curse\Unit1.pas=C:\Users\Lenovo\Desktop\Курсач\код\Curse\Maps.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Algs.pas"/>

@@ -11,7 +11,7 @@ type
     Pos: TPoint;
     Num: integer;
     isSuf: boolean;
-    Suf: String;
+    Suf: String[10];
     Building: integer;
     constructor Create(const X, Y: integer; const ANum: integer; ASuf: String; ABuilding: Integer);
     class operator Equal(a, b: TAuditory): boolean;
@@ -24,16 +24,21 @@ type
     Building, Floor: Integer;
     Pos: TPoint;
     constructor Create(Auditory: TAuditory);
-
   end;
   TEdge = record
     node: TAuditory;
     dist: integer;
   end;
   TVertex = array of TEdge;
+  TVertexFixed = record
+    Vert: array[0..100] of TEdge;
+    size: integer;
+  end;
   TGraph = array[1..1000] of TVertex;
   TUniGraph = array[0..5] of TGraph;
   Tpath = array of TUniPos;
+  TmapFile = file of TAuditory;
+  TgraphFile = file of TVertexFixed;
 
 
 procedure AddAud(var Floor: TFloor; Aud: TAuditory);   
@@ -134,8 +139,45 @@ begin
   Floor := Auditory.Num div 100;
 end;
 
+var
+  mapFile1: array[1..4] of TmapFile;
+  temp: TAuditory;
+  reading: boolean;
+  Vertex: TVertexFixed;
+  graphFile1: TGraphFile;
+
 initialization
 
   SetLength(BSUIR, 5);
 
+  SetLength(BSUIR[0], 5);
+  //1ST BUILDING
+  AssignFile(mapFile1[1], 'map1.1.dat');
+  AssignFile(mapFile1[2], 'map1.2.dat');
+  AssignFile(mapFile1[3], 'map1.3.dat');
+  AssignFile(mapFile1[4], 'map1.4.dat');
+  for var i := 1 to 4 do
+  begin
+    Reset(mapFile1[i]);
+    reading := true;
+    while not EoF(mapFile1[i]) do
+    begin
+      Read(mapFile1[i], temp);
+      AddAud(BSUIR[0][i], temp);
+    end;
+    closeFile(mapFile1[i]);
+  end;
+
+  AssignFile(graphFile1, 'graph1.dat');
+  reset(graphFile1);
+  for var i := 1 to 1000 do
+  begin
+    read(graphFile1, Vertex);
+    setLength(BSUIRGraph[0][i], Vertex.size);
+    for var j := 0 to Vertex.size - 1 do
+    begin
+      BSUIRGraph[0][i][j] := Vertex.Vert[j];
+    end;
+  end;
+  Close(graphFile1);
 end.

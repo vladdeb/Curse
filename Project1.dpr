@@ -8,8 +8,8 @@ uses
   Maps in 'Maps.pas',
   Draw in 'Draw.pas',
   Algs in 'Algs.pas',
-  Graph in 'Graph.pas',
-  Building1 in 'Building1.pas';
+  //Building1 in 'Building1.pas',
+  Graph in 'Graph.pas';
 
 {$R *.res}
 

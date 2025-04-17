@@ -6,6 +6,11 @@ uses
 
 implementation
 
+var
+  mapFile: array[1..4] of TmapFile;
+  graphFile: TgraphFile;
+  Vertex: TVertexFixed;
+
 initialization
   //1ST BUILDING AUDITORY CORDS
   SetLength(BSUIR[0], 5);
@@ -228,7 +233,20 @@ initialization
   AddAud(BSUIR[0][4], TAuditory.Create(1116, 177,  499, 'Ladderr1', 1));
   AddAud(BSUIR[0][4], TAuditory.Create(1077, 177,  499, 'Ladderr2', 1));
 
+  AssignFile(mapFile[1], 'map1.1.dat');
+  AssignFile(mapFile[2], 'map1.2.dat');
+  AssignFile(mapFile[3], 'map1.3.dat');
+  AssignFile(mapFile[4], 'map1.4.dat');
 
+
+
+  for var i := 1 to 4 do
+  begin
+    Rewrite(mapFile[i]);
+    for var j := Low(BSUIR[0][i]) to High(BSUIR[0][i]) do
+      Write(mapFile[i], BSUIR[0][i][j]);
+    closeFile(mapFile[i]);
+  end;
   for var i := 1 to 1000 do
     SetLength(BSUIRGraph[0][i], 0);
   //INDEX => 100*FLOOR+INDEX IN BSUIR[BUILDING]
@@ -771,4 +789,18 @@ initialization
   AddEdge(BSUIR[0], BSUIRGraph[0], 444, 432);
   AddEdge(BSUIR[0], BSUIRGraph[0], 444, 434);
   AddEdge(BSUIR[0], BSUIRGraph[0], 444, 436);
+
+  AssignFile(graphFile, 'graph1.dat');
+  rewrite(graphFile);
+  for var i := 1 to 1000 do
+  begin
+    Vertex.size := 0;
+    for var j := Low(BSUIRGraph[0][i]) to High(BSUIRGraph[0][i]) do
+    begin
+      Vertex.Vert[Vertex.size] := BSUIRGraph[0][i][j];
+      Inc(Vertex.size);
+    end;
+    Write(graphFile, Vertex);
+  end;
+  Close(graphFile);
 end.
