@@ -1,0 +1,48 @@
+unit MainMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, AuditoryMenu, PathMenu;
+
+type
+  TmnMain = class(TForm)
+    butClose: TButton;
+    butPathMenu: TButton;
+    butClassMenu: TButton;
+    procedure butCloseClick(Sender: TObject);
+    procedure butClassMenuClick(Sender: TObject);
+    procedure butPathMenuClick(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }A: TStrings;
+  end;
+
+var
+  mnMain: TmnMain;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm2 }
+
+procedure TmnMain.butClassMenuClick(Sender: TObject);
+begin
+  Application.CreateForm(TmnClassFind, mnClassFind);
+end;
+
+procedure TmnMain.butCloseClick(Sender: TObject);
+begin
+  Halt;
+end;
+
+procedure TmnMain.butPathMenuClick(Sender: TObject);
+begin
+  Application.CreateForm(TmnPathFind, mnPathFind);
+end;
+
+end.

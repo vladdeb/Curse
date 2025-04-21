@@ -123,11 +123,11 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Unit2.pas">
+        <DCCReference Include="MainMenu.pas">
             <Form>mnMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="ClassMenu.pas">
+        <DCCReference Include="AuditoryMenu.pas">
             <Form>mnClassFind</Form>
             <FormType>dfm</FormType>
         </DCCReference>
@@ -138,7 +138,6 @@
         <DCCReference Include="Maps.pas"/>
         <DCCReference Include="Draw.pas"/>
         <DCCReference Include="Algs.pas"/>
-        <DCCReference Include="Graph.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

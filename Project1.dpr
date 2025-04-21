@@ -2,14 +2,12 @@ program Project1;
 
 uses
   Vcl.Forms,
-  Unit2 in 'Unit2.pas' {mnMain},
-  ClassMenu in 'ClassMenu.pas' {mnClassFind},
+  MainMenu in 'MainMenu.pas' {mnMain},
+  AuditoryMenu in 'AuditoryMenu.pas' {mnClassFind},
   PathMenu in 'PathMenu.pas' {mnPathFind},
   Maps in 'Maps.pas',
   Draw in 'Draw.pas',
-  Algs in 'Algs.pas',
-  //Building1 in 'Building1.pas',
-  Graph in 'Graph.pas';
+  Algs in 'Algs.pas';
 
 {$R *.res}
 

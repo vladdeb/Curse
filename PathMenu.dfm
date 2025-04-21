@@ -7430,17 +7430,26 @@ object mnPathFind: TmnPathFind
     TabOrder = 0
     ExplicitLeft = 857
     ExplicitHeight = 696
+    object Label1: TLabel
+      Left = 1
+      Top = 170
+      Width = 183
+      Height = 533
+      Align = alClient
+      ExplicitWidth = 3
+      ExplicitHeight = 15
+    end
     object butFind: TButton
       Left = 1
       Top = 47
       Width = 183
       Height = 25
       Align = alTop
-      Caption = 'butSearch'
+      Caption = #1053#1072#1081#1090#1080' '#1087#1091#1090#1100
       TabOrder = 0
       OnClick = butFindClick
     end
-    object butMain: TButton
+    object butMainMenu: TButton
       Left = 1
       Top = 72
       Width = 183
@@ -7448,6 +7457,7 @@ object mnPathFind: TmnPathFind
       Align = alTop
       Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
       TabOrder = 1
+      OnClick = butMainMenuClick
     end
     object edStart: TEdit
       Left = 1
@@ -7456,7 +7466,7 @@ object mnPathFind: TmnPathFind
       Height = 23
       Align = alTop
       TabOrder = 2
-      Text = 'edStart'
+      Text = #1053#1072#1095#1072#1083#1086
     end
     object edEnd: TEdit
       Left = 1
@@ -7465,7 +7475,7 @@ object mnPathFind: TmnPathFind
       Height = 23
       Align = alTop
       TabOrder = 3
-      Text = 'edEnd'
+      Text = #1050#1086#1085#1077#1094
     end
     object Panel2: TPanel
       Left = 1
@@ -7523,6 +7533,16 @@ object mnPathFind: TmnPathFind
         Text = 'cmbFloor'
         OnChange = cmbFloorChange
       end
+    end
+    object chbStreet: TCheckBox
+      Left = 1
+      Top = 153
+      Width = 183
+      Height = 17
+      Align = alTop
+      Caption = #1059#1083#1080#1094#1072
+      TabOrder = 6
+      OnClick = chbStreetClick
     end
   end
 end

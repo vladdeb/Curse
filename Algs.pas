@@ -3,11 +3,12 @@ unit Algs;
 interface
 
 uses
-  System.SysUtils, Maps;
+  System.SysUtils, Maps, Winapi.Windows;
 
 function ValidAud(const Aud: String): boolean;
 function SearchAud(Uni: TUni; const Aud: String; var Found: integer): TUniPos;
 function SearchPath(const Uni: TUni; building: integer; const Graph: TGraph; start, finish: integer): TPath;
+procedure joinPath(var Path1, Path2: TPath);
 
 implementation
 
@@ -18,6 +19,7 @@ type
     dist: integer;
     next: PQueueItem;
   end;
+  TScales = array[1..5] of real;
 
 function hash(Uni: TUni; Auditory: TAuditory): integer;
 var
@@ -32,7 +34,9 @@ begin
   result := (Auditory.Num div 100) * 100 + Found;
 end;
 
-function encode(aud: string; var code: integer): TAuditory;
+function encode(aud: string): TAuditory;
+var
+  code: integer;
 begin
   result.isSuf := false;
   result.Suf := ' ';
@@ -144,7 +148,7 @@ var
 
 begin
   Found := -1;
-  Target := encode(aud, code);
+  Target := encode(aud);
   result.Building := Target.Building;
   result.Floor := Target.Num div 100;
   if (result.Building > Length(Uni)) or (result.Floor > High(Uni[result.Building - 1])) then
@@ -180,6 +184,15 @@ begin
       Exit;
     end;
     Found := -1;
+  end;
+end;
+
+procedure joinPath(var Path1, Path2: TPath);
+begin
+  for var i := 0 to High(Path2) do
+  begin
+    setLength(Path1, length(Path1) + 1);
+    Path1[length(Path1) - 1] := Path2[i];
   end;
 end;
 
@@ -242,4 +255,85 @@ begin
   end;
   AddToPath(result, Uni[building - 1][start div 100][start mod 100]);
 end;
+
+function makePathDescription(Path: TPath; scale: TScales): string;
+type
+  TDir = (diLeft, diUp, diRight, diDown);
+
+function getDir(P1, P2: TPoint): TDir;
+var
+  dx, dy: integer;
+begin
+  dx := P2.X - P1.X;
+  dy := P2.Y - P1.Y;
+  if (Abs(dx) <= Abs(dy)) and (dy <= 0) then
+    result := diUp;
+  if (Abs(dx) <= Abs(dy)) and (dy >= 0) then
+    result := diDown;
+  if (Abs(dx) >= Abs(dy)) and (dx <= 0) then
+    result := diLeft;
+  if (Abs(dx) >= Abs(dy)) and (dx >= 0) then
+    result := diRight;
+end;
+
+function getTurn(Dir1, Dir2: TDir): TDir;
+begin
+  case Dir1 of
+  diUp:
+    if Dir2 = diRight then
+      result := diRight
+    else
+      result := diLeft;
+  diRight:
+    if Dir2 = diDown then
+      result := diRight
+    else
+      result := diLeft;
+  diLeft:
+    if Dir2 = diUp then
+      result := diRight
+    else
+      result := diLeft;
+  diDown:
+    if Dir2 = diLeft then
+      result := diRight
+    else
+      result := diLeft;
+  end;
+end;
+var
+  curDir: TDir;
+  i, curDist: integer;
+begin
+  result := '';
+  if Length(Path) <= 1 then
+    Exit;
+  curDir := getDir(Path[0].Pos, Path[1].Pos);
+  i := 2;
+  curDist := 0;
+  while (i <= High(Path)) do
+  begin
+    if (Path[i].Building <> Path[i - 1].Building) then
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := 0;
+      result := result + 'Перейдите в ' + IntToStr(Path[i].Building) + ' корпус'#13#10'';
+    end;
+    if (Path[i].Floor <> Path[i - 1].Floor) then
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := 0;
+      result := result + 'Перейдите на ' + IntToStr(Path[i].Floor) + ' этаж'#13#10'';
+    end;
+
+    if (getDir(Path[i].Pos, Path[i - 1].Pos) = curDir) then
+    begin
+      Inc(curDist, Abs(Path[i].Pos.X - Path[i - 1].Pos.X) + Abs(Path[i].Pos.Y - Path[i - 1].Pos.Y));
+    end;
+
+
+    inc(i);
+  end;
+end;
+
 end.

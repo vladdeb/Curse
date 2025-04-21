@@ -4,10 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Maps;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Math, Maps;
 
 procedure DrawCross(Canvas: TCanvas; X, Y: Integer);
 procedure DrawPath(Canvas: TCanvas; Building, Floor: Integer; Path: TPath);
+procedure DrawStreetPath(Canvas: TCanvas; StreetPos: TStreetPos; st, fin: Integer);
 
 implementation
 
@@ -28,6 +29,38 @@ begin
   end;
 end;
 
+procedure ArrowTo(Canvas: TCanvas; const x, y: Integer);
+const
+  ArrowSize: Integer = 10;
+var
+  FromPoint, ToPoint: TPoint;
+  Angle: Double;
+  ArrowP1, ArrowP2: TPoint;
+begin
+  FromPoint := Canvas.PenPos;
+  ToPoint := Point(x, y);
+
+  Canvas.LineTo(x, y);
+
+  Angle := ArcTan2(ToPoint.Y - FromPoint.Y, ToPoint.X - FromPoint.X);
+
+  ArrowP1 := Point(
+    Round(ToPoint.X - ArrowSize * Cos(Angle + Pi/6)),
+    Round(ToPoint.Y - ArrowSize * Sin(Angle + Pi/6))
+  );
+
+  ArrowP2 := Point(
+    Round(ToPoint.X - ArrowSize * Cos(Angle - Pi/6)),
+    Round(ToPoint.Y - ArrowSize * Sin(Angle - Pi/6))
+  );
+
+  Canvas.MoveTo(ToPoint.X, ToPoint.Y);
+  Canvas.LineTo(ArrowP1.X, ArrowP1.Y);
+
+  Canvas.MoveTo(ToPoint.X, ToPoint.Y);
+  Canvas.LineTo(ArrowP2.X, ArrowP2.Y);
+end;
+
 procedure DrawPath(Canvas: TCanvas; Building, Floor: Integer; Path: TPath);
 var
   i: integer;
@@ -44,17 +77,49 @@ begin
       MoveTo(path[i].Pos.X, path[i].Pos.Y);
       Inc(i);
       if I <= High(Path) then
-        LineTo(path[i].Pos.X, path[i].Pos.Y);
-    end;
-    while (i <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
-    begin
-      MoveTo(path[i].Pos.X, path[i].Pos.Y);
-      Inc(i);
-      if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
-        LineTo(path[i].Pos.X, path[i].Pos.Y);
+        ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
+      while (i <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
+      begin
+        MoveTo(path[i].Pos.X, path[i].Pos.Y);
+        Inc(i);
+        if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
+          ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
+      end;
+      if (i <= High(Path)) then
+      begin
+        textOut(path[i].Pos.X, Path[i].Pos.Y - 10, IntToStr(Path[i].Floor) + 'Эт.');
+      end;
     end;
   end;
 
+end;
+
+procedure DrawStreetPath(Canvas: TCanvas; StreetPos: TStreetPos; st, fin: Integer);
+begin
+  with Canvas do
+  begin
+    Pen.Width := 3;
+    pen.Color := clRed;
+    MoveTo(StreetPos[st].X, StreetPos[st].Y);
+    if st < fin then
+    begin
+      Inc(st);
+      for var i := st to fin do
+      begin
+        ArrowTo(Canvas, StreetPos[i].X, StreetPos[i].Y);
+        MoveTo(StreetPos[st].X, StreetPos[st].Y);
+      end;
+    end
+    else
+    begin
+      Dec(st);
+      for var i := st downto fin do
+      begin
+        ArrowTo(Canvas, StreetPos[i].X, StreetPos[i].Y);
+        MoveTo(StreetPos[st].X, StreetPos[st].Y);
+      end;
+    end;
+  end;
 end;
 
 end.
