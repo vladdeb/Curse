@@ -5,10 +5,12 @@ interface
 uses
   System.SysUtils, Maps, Winapi.Windows;
 
+
 function ValidAud(const Aud: String): boolean;
 function SearchAud(Uni: TUni; const Aud: String; var Found: integer): TUniPos;
 function SearchPath(const Uni: TUni; building: integer; const Graph: TGraph; start, finish: integer): TPath;
 procedure joinPath(var Path1, Path2: TPath);
+function makePathDescription(Path: TPath; scale: TScales): string;
 
 implementation
 
@@ -19,7 +21,7 @@ type
     dist: integer;
     next: PQueueItem;
   end;
-  TScales = array[1..5] of real;
+
 
 function hash(Uni: TUni; Auditory: TAuditory): integer;
 var
@@ -124,6 +126,7 @@ begin
   end;
   if (Aud[n] < '0') or (Aud[n] > '9') then
   begin
+    result := False;
     Exit;
   end;
 
@@ -276,30 +279,35 @@ begin
     result := diRight;
 end;
 
-function getTurn(Dir1, Dir2: TDir): TDir;
+function getTurn(Dir1, Dir2: TDir): string;
 begin
   case Dir1 of
   diUp:
-    if Dir2 = diRight then
-      result := diRight
-    else
-      result := diLeft;
-  diRight:
-    if Dir2 = diDown then
-      result := diRight
-    else
-      result := diLeft;
-  diLeft:
-    if Dir2 = diUp then
-      result := diRight
-    else
-      result := diLeft;
-  diDown:
     if Dir2 = diLeft then
-      result := diRight
+      result := 'право'
     else
-      result := diLeft;
+      result := 'лево';
+  diRight:
+    if Dir2 = diUp then
+      result := 'право'
+    else
+      result := 'лево';
+  diLeft:
+    if Dir2 = diDown then
+      result := 'право'
+    else
+      result := 'лево';
+  diDown:
+    if Dir2 = diRight then
+      result := 'право'
+    else
+      result := 'лево';
   end;
+end;
+
+function getDist(P1, P2: TPOint): integer;
+begin
+  result := Abs(P1.X - P2.X) + Abs(P1.Y - P2.Y);
 end;
 var
   curDir: TDir;
@@ -310,29 +318,42 @@ begin
     Exit;
   curDir := getDir(Path[0].Pos, Path[1].Pos);
   i := 2;
-  curDist := 0;
+  curDist := GetDist(Path[1].Pos, Path[0].Pos);
   while (i <= High(Path)) do
   begin
     if (Path[i].Building <> Path[i - 1].Building) then
     begin
-      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      result := result + 'Пройдите прямо ' + IntToStr(Round(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
       curDist := 0;
+      curDir := diUp;
       result := result + 'Перейдите в ' + IntToStr(Path[i].Building) + ' корпус'#13#10'';
-    end;
-    if (Path[i].Floor <> Path[i - 1].Floor) then
+    end
+    else if (Path[i].Floor <> Path[i - 1].Floor) then
     begin
-      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      result := result + 'Пройдите прямо ' + IntToStr(Round(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
       curDist := 0;
+      curDir := getDir(Path[i].Pos, Path[i + 1].Pos);
       result := result + 'Перейдите на ' + IntToStr(Path[i].Floor) + ' этаж'#13#10'';
-    end;
-
-    if (getDir(Path[i].Pos, Path[i - 1].Pos) = curDir) then
+    end
+    else if (getDir(Path[i-1].Pos, Path[i].Pos) = curDir) then
     begin
-      Inc(curDist, Abs(Path[i].Pos.X - Path[i - 1].Pos.X) + Abs(Path[i].Pos.Y - Path[i - 1].Pos.Y));
+      Inc(curDist, GetDist(Path[i].Pos, Path[i - 1].Pos));
+    end
+    else
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Round(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := GetDist(Path[i].Pos, Path[i - 1].Pos);
+      result := result + 'Поверните на' + getTurn(curDir, getDir(Path[i].Pos, Path[i - 1].Pos)) + ''#13#10'';
+      curdir := getDir(Path[i-1].Pos, Path[i].Pos);
     end;
-
 
     inc(i);
+    if i = High(Path) then
+    begin
+      Inc(curDist, GetDist(Path[i].Pos, Path[i - 1].Pos));
+      result := result + 'Пройдите прямо ' + IntToStr(Round(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      Inc(i);
+    end;
   end;
 end;
 

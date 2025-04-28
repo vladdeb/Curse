@@ -22,7 +22,9 @@ type
     cmbFloor: TComboBox;
     imMap: TImage;
     chbStreet: TCheckBox;
+    lblPathDesc: TLabel;
     Label1: TLabel;
+    Label2: TLabel;
     procedure Init(Sender: TObject);
     procedure cmbBuildingChange(Sender: TObject);
     procedure cmbFloorChange(Sender: TObject);
@@ -137,6 +139,7 @@ begin
     imMap.Picture.LoadFromFile(curMap);
     DrawPath(imMap.Canvas, bStart, start div 100, Path);
   end;
+  lblPathDesc.Caption := makePathDescription(Path, scales);
 end;
 
 procedure TmnPathFind.cmbBuildingChange(Sender: TObject);
@@ -166,8 +169,10 @@ end;
 procedure TmnPathFind.Init(Sender: TObject);
 begin
   Show;
+  StreetSt :=  1;
+  StreetFin := 1;
   curMap := '1.1.bmp';
-  pnMain.Width := 200;
+  pnMain.Width := 300;
   imMap.Picture.LoadFromFile(curMap);
   SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
   cmbBuilding.AddItem('1', nil);
@@ -180,7 +185,7 @@ begin
     cmbFloor.AddItem(Char(i + 48), nil);
   cmbFloor.ItemIndex := 0;
 
-  ClientWidth := 1400;
+  ClientWidth := 1500;
   ClientHeight := 600;
 end;
 

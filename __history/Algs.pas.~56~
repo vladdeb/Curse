@@ -1,0 +1,345 @@
+unit Algs;
+
+interface
+
+uses
+  System.SysUtils, Maps, Winapi.Windows;
+
+
+function ValidAud(const Aud: String): boolean;
+function SearchAud(Uni: TUni; const Aud: String; var Found: integer): TUniPos;
+function SearchPath(const Uni: TUni; building: integer; const Graph: TGraph; start, finish: integer): TPath;
+procedure joinPath(var Path1, Path2: TPath);
+function makePathDescription(Path: TPath; scale: TScales): string;
+
+implementation
+
+type
+  PQueueItem = ^TQueueItem;
+  TQueueItem = record
+    node: integer;
+    dist: integer;
+    next: PQueueItem;
+  end;
+
+
+function hash(Uni: TUni; Auditory: TAuditory): integer;
+var
+  Found: integer;
+  AudFull: string;
+begin
+  AudFull := IntToStr(Auditory.Num);
+  if Auditory.isSuf then
+    AudFull := AudFull + Auditory.Suf;
+  AudFull := AudFull + '-' + IntToStr(Auditory.Building);
+  SearchAud(Uni, AudFull, Found);
+  result := (Auditory.Num div 100) * 100 + Found;
+end;
+
+function encode(aud: string): TAuditory;
+var
+  code: integer;
+begin
+  result.isSuf := false;
+  result.Suf := ' ';
+  result.Building := Ord(Aud[length(Aud)]) - Ord('0');
+
+  val(Copy(Aud, 1, 3), result.Num, code);
+  if length(Aud) > 5 then
+  begin
+    result.isSuf := true;
+    result.Suf := Copy(Aud, 4, Length(Aud) - 5);
+  end;
+end;
+//QUEUE FUNCTIONS
+procedure Clear(head: PQueueItem);
+var
+  temp: PQueueItem;
+begin
+  if head <> nil then
+  begin
+    temp := head;
+    while head <> nil do
+    begin
+      temp := head;
+      head := temp^.next;
+      Dispose(temp);
+    end;
+  end;
+end;
+
+procedure Insert(head: PQueueItem; val: integer; node: integer);
+var
+  temp, newItem: PQueueItem;
+begin
+  temp := head;
+  while (temp^.next <> nil) and (val > temp^.next^.dist) do
+    temp := temp^.next;
+  New(newItem);
+  newItem^.dist := val;
+  newItem^.node := node;
+  newItem^.next := temp^.next;
+  temp^.next := newItem;
+end;
+
+function GetFrontNode(head: PQueueItem): integer;
+begin
+  if head^.next <> nil then
+    result := head^.next^.node;
+end;
+
+function GetFrontDist(head: PQueueItem): integer;
+begin
+  if head^.next <> nil then
+    result := head^.next^.Dist;
+end;
+
+procedure Pop(head: PQueueItem);
+var
+  temp: PQueueItem;
+begin
+  if head^.next <> nil then
+  begin
+    temp := head^.next;
+    head^.next := temp^.next;
+    Dispose(temp);
+  end;
+end;
+
+
+//INPUT CHECK
+function ValidAud(const Aud: String): boolean;
+var
+  n, temp1, temp2: integer;
+begin
+  result := true;
+  n := Length(Aud);
+  if n < 5 then
+  begin
+    result := False;
+    Exit;
+  end;
+  if Aud[n - 1] <> '-' then
+  begin
+    result := False;
+    Exit;
+  end;
+  if (Aud[n] < '0') or (Aud[n] > '9') then
+  begin
+    Exit;
+  end;
+
+  val(Copy(Aud, 1, 3), temp1, temp2);
+  if temp2 <> 0 then
+  begin
+    result := False;
+    Exit;
+  end;
+end;
+
+
+//SEARCH OF AUDITORY
+function SearchAud(Uni: TUni; const Aud: String; var Found: integer): TUniPos;
+var
+  Num, code: Integer;
+  isSuf: Boolean;
+  Suf: String;
+  CurFloor: TFloor;
+  l, r, m: integer;
+  temp, Target: TAuditory;
+
+begin
+  Found := -1;
+  Target := encode(aud);
+  result.Building := Target.Building;
+  result.Floor := Target.Num div 100;
+  if (result.Building > Length(Uni)) or (result.Floor > High(Uni[result.Building - 1])) then
+  begin
+    Found := -1;
+    Exit;
+  end;
+  CurFloor := Uni[result.Building - 1][result.Floor];
+  l := 0;
+  r := length(CurFloor);
+  //Target := TAuditory.Create(0, 0, Num, Suf, result.Building);
+  while (r - l > 1) and (Found = -1) do
+  begin
+    m := (l + r) div 2;
+    temp := CurFloor[m];
+    if temp = Target then
+    begin
+      Found := m;
+      result.Pos := temp.Pos;
+    end
+    else
+      if temp < Target then
+        l := m + 1
+      else
+        r := m;
+  end;
+  if r - l = 1 then
+  begin
+    if Target = CurFloor[l] then
+    begin
+      result.Pos := CurFloor[l].Pos;
+      Found := l;
+      Exit;
+    end;
+    Found := -1;
+  end;
+end;
+
+procedure joinPath(var Path1, Path2: TPath);
+begin
+  for var i := 0 to High(Path2) do
+  begin
+    setLength(Path1, length(Path1) + 1);
+    Path1[length(Path1) - 1] := Path2[i];
+  end;
+end;
+
+function SearchPath(const Uni: TUni; building: integer; const Graph: TGraph; start, finish: integer): TPath;
+var
+  Queue: PQueueItem;
+  Dist: array[1..1000] of integer;
+  prev: array[1..1000] of integer;
+  tempLen, tempNode, temp: integer;
+
+const
+  inf = 1000000000;
+
+procedure AddToPath(var Path: TPath; Aud: TAuditory);
+begin
+  setLength(Path, length(Path) + 1);
+  Path[length(Path) - 1] := TUniPos.Create(Aud);
+end;
+
+begin
+  temp := Start;
+  start := finish;
+  finish := temp;
+  for var i := 1 to 1000 do
+  begin
+    Dist[i] := inf;
+    prev[i] := -1;
+  end;
+  New(Queue);
+  Queue^.next := nil;
+  Dist[start] := 0;
+
+  Insert(Queue, 0, start);
+  while Queue^.next <> nil do
+  begin
+    tempLen := GetFrontDist(Queue);
+    tempNode := GetFrontNode(Queue);
+    Pop(Queue);
+    if not (tempLen > dist[tempNode]) then
+    begin
+      for var i := 0 to High(graph[tempNode]) do
+      begin
+        if dist[hash(Uni, graph[tempNode][i].node)] > dist[tempNode] + graph[tempNode][i].dist then
+        begin
+          dist[hash(Uni, graph[tempNode][i].node)] := dist[tempNode] + graph[tempNode][i].dist;
+          prev[hash(Uni, graph[tempNode][i].node)] := tempNode;
+          Insert(Queue, dist[hash(Uni, graph[tempNode][i].node)], hash(Uni, graph[tempNode][i].node));
+        end;
+      end;
+
+    end;
+  end;
+  Clear(Queue);
+  temp := finish;
+  setLength(result, 0);
+  while temp <> start do
+  begin
+    AddToPath(result, Uni[building - 1][temp div 100][temp mod 100]);
+    temp := prev[temp];
+  end;
+  AddToPath(result, Uni[building - 1][start div 100][start mod 100]);
+end;
+
+function makePathDescription(Path: TPath; scale: TScales): string;
+type
+  TDir = (diLeft, diUp, diRight, diDown);
+
+function getDir(P1, P2: TPoint): TDir;
+var
+  dx, dy: integer;
+begin
+  dx := P2.X - P1.X;
+  dy := P2.Y - P1.Y;
+  if (Abs(dx) <= Abs(dy)) and (dy <= 0) then
+    result := diUp;
+  if (Abs(dx) <= Abs(dy)) and (dy >= 0) then
+    result := diDown;
+  if (Abs(dx) >= Abs(dy)) and (dx <= 0) then
+    result := diLeft;
+  if (Abs(dx) >= Abs(dy)) and (dx >= 0) then
+    result := diRight;
+end;
+
+function getTurn(Dir1, Dir2: TDir): string;
+begin
+  case Dir1 of
+  diUp:
+    if Dir2 = diRight then
+      result := 'право'
+    else
+      result := 'лево';
+  diRight:
+    if Dir2 = diDown then
+      result := 'право'
+    else
+      result := 'лево';
+  diLeft:
+    if Dir2 = diUp then
+      result := 'право'
+    else
+      result := 'лево';
+  diDown:
+    if Dir2 = diLeft then
+      result := 'право'
+    else
+      result := 'лево';
+  end;
+end;
+var
+  curDir: TDir;
+  i, curDist: integer;
+begin
+  result := '';
+  if Length(Path) <= 1 then
+    Exit;
+  curDir := getDir(Path[0].Pos, Path[1].Pos);
+  i := 2;
+  curDist := 0;
+  while (i <= High(Path)) do
+  begin
+    if (Path[i].Building <> Path[i - 1].Building) then
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := 0;
+      result := result + 'Перейдите в ' + IntToStr(Path[i].Building) + ' корпус'#13#10'';
+    end
+    else if (Path[i].Floor <> Path[i - 1].Floor) then
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := 0;
+      result := result + 'Перейдите на ' + IntToStr(Path[i].Floor) + ' этаж'#13#10'';
+    end
+    else if (getDir(Path[i].Pos, Path[i - 1].Pos) = curDir) then
+    begin
+      Inc(curDist, Abs(Path[i].Pos.X - Path[i - 1].Pos.X) + Abs(Path[i].Pos.Y - Path[i - 1].Pos.Y));
+    end
+    else
+    begin
+      result := result + 'Пройдите прямо ' + IntToStr(Trunc(curDist*scale[Path[i - 1].Building])) + ' метров'#13#10'';
+      curDist := 0;
+      result := result + 'Перейдите на' + getTurn(curDir, getDir(Path[i].Pos, Path[i - 1].Pos)) + ' этаж'#13#10'';
+    end;
+
+    inc(i);
+  end;
+end;
+
+end.

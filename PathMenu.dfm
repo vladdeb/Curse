@@ -1,6 +1,8 @@
 object mnPathFind: TmnPathFind
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'mnPathFind'
   ClientHeight = 704
   ClientWidth = 1044
@@ -7430,62 +7432,95 @@ object mnPathFind: TmnPathFind
     TabOrder = 0
     ExplicitLeft = 857
     ExplicitHeight = 696
+    object lblPathDesc: TLabel
+      Left = 1
+      Top = 200
+      Width = 183
+      Height = 503
+      Align = alClient
+      ExplicitLeft = 6
+      ExplicitTop = 176
+      ExplicitHeight = 533
+    end
     object Label1: TLabel
       Left = 1
-      Top = 170
+      Top = 1
       Width = 183
-      Height = 533
-      Align = alClient
-      ExplicitWidth = 3
-      ExplicitHeight = 15
+      Height = 15
+      Align = alTop
+      Caption = #1053#1072#1095#1072#1083#1086
+      ExplicitWidth = 42
+    end
+    object Label2: TLabel
+      Left = 1
+      Top = 39
+      Width = 183
+      Height = 15
+      Align = alTop
+      Caption = #1050#1086#1085#1077#1094
+      ExplicitWidth = 34
     end
     object butFind: TButton
       Left = 1
-      Top = 47
+      Top = 77
       Width = 183
       Height = 25
       Align = alTop
       Caption = #1053#1072#1081#1090#1080' '#1087#1091#1090#1100
       TabOrder = 0
       OnClick = butFindClick
+      ExplicitTop = 47
     end
     object butMainMenu: TButton
       Left = 1
-      Top = 72
+      Top = 102
       Width = 183
       Height = 25
       Align = alTop
       Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
       TabOrder = 1
       OnClick = butMainMenuClick
+      ExplicitTop = 72
     end
     object edStart: TEdit
       Left = 1
-      Top = 1
+      Top = 16
       Width = 183
       Height = 23
       Align = alTop
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 2
-      Text = #1053#1072#1095#1072#1083#1086
+      TextHint = #1053#1086#1084#1077#1088'-'#1050#1086#1088#1087#1091#1089'('#1053#1072#1087#1088#1080#1084#1077#1088', 213'#1072'-1)'
+      ExplicitTop = 1
     end
     object edEnd: TEdit
       Left = 1
-      Top = 24
+      Top = 54
       Width = 183
       Height = 23
       Align = alTop
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 3
-      Text = #1050#1086#1085#1077#1094
+      TextHint = #1053#1086#1084#1077#1088'-'#1050#1086#1088#1087#1091#1089'('#1053#1072#1087#1088#1080#1084#1077#1088', 213'#1072'-1)'
+      ExplicitTop = 24
     end
     object Panel2: TPanel
       Left = 1
-      Top = 97
+      Top = 127
       Width = 183
       Height = 24
       Align = alTop
       BevelOuter = bvNone
-      Caption = 'Init'
       TabOrder = 4
+      ExplicitTop = 103
       object lblBuilding: TLabel
         Left = 0
         Top = 0
@@ -7493,12 +7528,13 @@ object mnPathFind: TmnPathFind
         Height = 24
         Align = alLeft
         Caption = #1050#1086#1088#1087#1091#1089
-        ExplicitHeight = 15
+        ExplicitLeft = 5
+        ExplicitTop = -6
       end
       object cmbBuilding: TComboBox
-        Left = 79
+        Left = 80
         Top = 0
-        Width = 104
+        Width = 103
         Height = 23
         Align = alRight
         TabOrder = 0
@@ -7508,12 +7544,13 @@ object mnPathFind: TmnPathFind
     end
     object Panel3: TPanel
       Left = 1
-      Top = 121
+      Top = 151
       Width = 183
       Height = 32
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 5
+      ExplicitTop = 103
       object lblFloor: TLabel
         Left = 0
         Top = 0
@@ -7532,17 +7569,21 @@ object mnPathFind: TmnPathFind
         TabOrder = 0
         Text = 'cmbFloor'
         OnChange = cmbFloorChange
+        ExplicitLeft = 72
+        ExplicitTop = 3
       end
     end
     object chbStreet: TCheckBox
       Left = 1
-      Top = 153
+      Top = 183
       Width = 183
       Height = 17
       Align = alTop
       Caption = #1059#1083#1080#1094#1072
       TabOrder = 6
       OnClick = chbStreetClick
+      ExplicitLeft = 6
+      ExplicitTop = 147
     end
   end
 end

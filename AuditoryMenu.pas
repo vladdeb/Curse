@@ -107,7 +107,7 @@ procedure TmnClassFind.Init(Sender: TObject);
 begin
   Show;
   curMap := '1.1.bmp';
-  pnSearch.Width := 200;
+  pnSearch.Width := 300;
   imMap.Picture.LoadFromFile(curMap);
   SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
   SendMessage(GetWindow(cmbFloor.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
@@ -120,7 +120,7 @@ begin
   for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
     cmbFloor.AddItem(Char(i + 48), nil);
   cmbFloor.ItemIndex := 0;
-  ClientWidth := 1400;
+  ClientWidth := 1500;
   ClientHeight := 600;
 end;
 
