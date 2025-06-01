@@ -1,0 +1,203 @@
+unit Building5;
+
+interface
+uses Maps;
+
+implementation
+
+var
+  mapFile: array[1..4] of TmapFile;
+  graphFile: TgraphFile;
+  Vertex: TVertexFixed;
+  distx, disty, i, j, k: Integer;
+
+initialization
+
+  SetLength(BSUIR[4], 10);
+
+  for I := 1 to 9 do
+    SetLength(Bsuir[4][1], 0);
+  //1ST FLOOR
+  AddAud(BSUIR[4][1], TAuditory.Create(  79, 147, 101, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create(  94, 147, 102, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 138, 147, 103, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 248, 147, 104, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 191, 147, 105, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 342,  97, 106, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 249, 147, 107, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 353,  97, 108, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 748, 408, 109, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 353, 105, 110, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 873, 402, 111, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 353, 138, 112, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 987, 402, 113, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 353, 206, 114, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 958, 318, 115, ' ', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 637, 542, 199, 'Exit', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 637, 408, 199, 'Hall', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 353, 408, 199, 'Ladderl1', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 255, 408, 199, 'Ladderl2', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create( 987, 318, 199, 'Ladderr1', 5));
+  AddAud(BSUIR[4][1], TAuditory.Create(1067, 318, 199, 'Ladderr2', 5));
+  //2ND FLOOR
+  AddAud(BSUIR[4][2], TAuditory.Create( 244, 230, 201, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 244, 225, 201, 'à', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 278, 230, 201, 'á', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 334, 230, 202, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 312, 230, 203, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 427, 194, 204, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 440,  68, 206, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 501, 447, 207, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 619, 447, 207, 'à', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 574, 447, 207, 'á', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 440, 111, 208, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 707, 447, 209, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 440, 142, 210, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 782, 447, 211, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 440, 194, 212, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 860, 447, 213, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 860, 248, 216, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 860, 259, 216, 'á', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 860, 306, 216, 'â', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 536, 306, 221, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 619, 306, 222, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 698, 306, 223, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 780, 306, 224, ' ', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 440, 447, 299, 'Ladderl1', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 350, 447, 299, 'Ladderl2', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 860, 395, 299, 'Ladderr1', 5));
+  AddAud(BSUIR[4][2], TAuditory.Create( 934, 395, 299, 'Ladderr2', 5));
+  //3RD FLOOR
+  AddAud(BSUIR[4][3], TAuditory.Create( 210, 216, 301, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 168, 216, 302, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 263, 216, 303, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 308, 216, 304, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400, 166, 306, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 462, 473, 307, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400,  82, 308, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 591, 473, 309, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400, 128, 310, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 684, 473, 311, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400, 187, 312, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 731, 473, 313, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 840, 473, 315, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 571, 473, 316, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 931, 473, 317, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 639, 473, 318, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 774, 473, 318, 'à', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 875, 473, 320, ' ', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 922, 255, 322, 'à', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 922, 175, 322, 'á', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400, 216, 399, 'Corridor', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 400, 473, 399, 'Ladderl1', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 306, 473, 399, 'Ladderl2', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 930, 407, 399, 'Ladderr1', 5));
+  AddAud(BSUIR[4][3], TAuditory.Create( 933, 407, 399, 'Ladderr2', 5));
+  //4TH FLOOR
+  AddAud(BSUIR[4][4], TAuditory.Create( 210, 224, 401, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 210, 212, 401, 'á', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 255, 212, 402, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 210, 312, 403, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 304, 212, 404, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 547, 475, 405, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 400,  51, 406, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 595, 475, 407, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 400, 170, 408, 'à', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 400, 119, 408, 'á', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 733, 475, 409, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 605, 475, 410, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 846, 475, 411, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 877, 475, 412, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 925, 309, 414, ' ', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create(1020, 309, 414, 'à', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 400, 212, 499, 'Corridor', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 925, 475, 499, 'Corridor2', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 400, 475, 499, 'Ladderl1', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 306, 475, 499, 'Ladderl2', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 925, 408, 499, 'Ladderr1', 5));
+  AddAud(BSUIR[4][4], TAuditory.Create( 999, 408, 499, 'Ladderr2', 5));
+  //5TH FLOOR
+  AddAud(BSUIR[4][5], TAuditory.Create( 283, 230, 501, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 241, 212, 501, 'à', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 283, 212, 502, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 333, 212, 504, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 624, 475, 505, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 428,  82, 506, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 760, 475, 507, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 428, 172, 508, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 868, 475, 509, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 633, 475, 510, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 900, 475, 512, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 948, 330, 514, ' ', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create(1049, 320, 514, 'à', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 428, 212, 599, 'Corridor', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 948, 475, 599, 'Corridor2', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 428, 475, 599, 'Ladderl1', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 350, 475, 599, 'Ladderl2', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create( 948, 419, 599, 'Ladderr1', 5));
+  AddAud(BSUIR[4][5], TAuditory.Create(1040, 419, 599, 'Ladderr2', 5));
+  //6TH FLOOR
+  AddAud(BSUIR[4][6], TAuditory.Create( 198, 158, 601, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 241, 158, 601, 'à', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 297, 158, 602, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 401, 158, 604, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 472, 457, 605, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 625, 457, 606, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 651, 457, 607, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 774, 457, 608, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 898, 457, 609, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 932, 457, 610, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 988, 107, 612, ' ', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 988, 147, 612, 'à', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 988, 253, 612, 'á', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 988, 457, 699, 'Corridor', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 401, 457, 699, 'Ladderl1', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 350, 457, 699, 'Ladderl2', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create( 988, 380, 699, 'Ladderr1', 5));
+  AddAud(BSUIR[4][6], TAuditory.Create(1073, 380, 699, 'Ladderr2', 5));
+  //7TH FLOOR
+  AddAud(BSUIR[4][7], TAuditory.Create( 261, 147, 701, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 285, 147, 702, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 394, 147, 704, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 586, 457, 705, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 634, 457, 706, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 661, 457, 707, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 786, 457, 708, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 907, 457, 709, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 943, 457, 710, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 999, 300, 712, ' ', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 999, 457, 799, 'Corridor', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 394, 457, 799, 'Ladderl1', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 350, 457, 799, 'Ladderl2', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create( 999, 380, 799, 'Ladderr1', 5));
+  AddAud(BSUIR[4][7], TAuditory.Create(1073, 380, 799, 'Ladderr2', 5));
+  //8TH FLOOR
+  AddAud(BSUIR[4][8], TAuditory.Create( 206, 165, 801, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 257, 123, 802, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 257, 165, 803, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 374, 165, 804, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 560, 463, 805, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 607, 463, 806, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 633, 463, 807, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 754, 463, 808, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 877, 463, 809, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 912, 463, 810, ' ', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 999, 463, 899, 'Corridor', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 374, 463, 899, 'Ladderl1', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 284, 463, 899, 'Ladderl2', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create( 999, 463, 899, 'Ladderr1', 5));
+  AddAud(BSUIR[4][8], TAuditory.Create(1053, 463, 899, 'Ladderr2', 5));
+  //9TH FLOOR
+  AddAud(BSUIR[4][9], TAuditory.Create( 581, 453, 901, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 680, 453, 902, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 622, 453, 903, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 845, 453, 904, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 813, 453, 905, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 935, 453, 906, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 894, 453, 907, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 999, 453, 909, ' ', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 388, 453, 999, 'Ladderl1', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 284, 453, 999, 'Ladderl2', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create( 999, 383, 999, 'Ladderr1', 5));
+  AddAud(BSUIR[4][9], TAuditory.Create(1077, 383, 999, 'Ladderr2', 5));
+end.

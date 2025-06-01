@@ -248,7 +248,7 @@ initialization
       Write(mapFile[i], BSUIR[0][i][j]);
     closeFile(mapFile[i]);
   end;
-  for var i := 1 to 1000 do
+  for var i := 1 to 1100 do
     SetLength(BSUIRGraph[0][i], 0);
   //INDEX => 100*FLOOR+INDEX IN BSUIR[BUILDING]
   //INTERFLOOR CONNECTIONS
@@ -291,7 +291,7 @@ initialization
   end;
   AssignFile(graphFile, 'graph1.dat');
   rewrite(graphFile);
-  for var i := 1 to 1000 do
+  for var i := 1 to 1100 do
   begin
     Vertex.size := 0;
     for var j := Low(BSUIRGraph[0][i]) to High(BSUIRGraph[0][i]) do

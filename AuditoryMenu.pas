@@ -58,12 +58,12 @@ var
 begin
   if not ValidAud(AudIn.Text) then
   begin
-    AudIn.Text := 'Некорректный формат';
+    ShowMessage('Неверный формат(Номер аудитории-корпус, например, 213а-1)');
     Exit;
   end;
   AudPos := SearchAud(BSUIR, AudIn.Text, Found);
   if Found = -1 then
-    AudIn.Text := 'Аудитория не найдена'
+    ShowMessage('Аудитория не найдена')
   else
   begin
     cmbBuilding.ItemIndex := AudPos.Building - 1;
@@ -86,7 +86,12 @@ begin
       cmbFloor.AddItem(Char(i + 48), nil);
     cmbFloor.ItemIndex := 0;
     CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    try
     imMap.Picture.LoadFromFile(curMap);
+  except
+    on EFOpenError do
+      imMap.Picture.LoadFromFile('NotAv.bmp');
+    end;
   end;
 end;
 
@@ -94,7 +99,12 @@ procedure TmnClassFind.cmbFloorChange(Sender: TObject);
 begin
   CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
 
-  imMap.Picture.LoadFromFile(curMap);
+  try
+    imMap.Picture.LoadFromFile(curMap);
+  except
+    on EFOpenError do
+      imMap.Picture.LoadFromFile('NotAv.bmp');
+    end;
 end;
 
 procedure TmnClassFind.ShowPos(Sender: TObject);
@@ -113,9 +123,9 @@ begin
   SendMessage(GetWindow(cmbFloor.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
   cmbBuilding.AddItem('1', nil);
   cmbBuilding.AddItem('2', nil);
-  //cmbBuilding.AddItem('3', nil);
-  //cmbBuilding.AddItem('4', nil);
-  //cmbBuilding.AddItem('5', nil);
+  cmbBuilding.AddItem('3', nil);
+  cmbBuilding.AddItem('4', nil);
+  cmbBuilding.AddItem('5', nil);
   cmbBuilding.ItemIndex := 0;
   for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
     cmbFloor.AddItem(Char(i + 48), nil);

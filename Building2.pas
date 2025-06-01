@@ -167,7 +167,7 @@ initialization
   end;
 
   //GRAPH
-  for i := 1 to 1000 do
+  for i := 1 to 1100 do
     SetLength(BSUIRGraph[1][i], 0);
   //INTERFLOOR
   AddEdge(BSUIR[1], BSUIRGraph[1], 114, 213);
@@ -220,7 +220,7 @@ initialization
   end;
   AssignFile(graphFile, 'graph2.dat');
   rewrite(graphFile);
-  for i := 1 to 1000 do
+  for i := 1 to 1100 do
   begin
     Vertex.size := 0;
     for j := Low(BSUIRGraph[1][i]) to High(BSUIRGraph[1][i]) do

@@ -7,7 +7,11 @@ uses
   PathMenu in 'PathMenu.pas' {mnPathFind},
   Maps in 'Maps.pas',
   Draw in 'Draw.pas',
-  //Building2,
+//  Building1,
+//  Building2,
+//  Building3,
+//  Building4,
+//  Building5,
   Algs in 'Algs.pas';
 
 {$R *.res}

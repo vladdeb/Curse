@@ -3,9 +3,9 @@ object mnMain: TmnMain
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'mnMain'
-  ClientHeight = 453
-  ClientWidth = 612
+  Caption = 'BsuirGuide'
+  ClientHeight = 445
+  ClientWidth = 610
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

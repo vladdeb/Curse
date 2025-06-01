@@ -34,7 +34,7 @@ type
     Vert: array[0..100] of TEdge;
     size: integer;
   end;
-  TGraph = array[1..1000] of TVertex;
+  TGraph = array[1..1100] of TVertex;
   TUniGraph = array[0..5] of TGraph;
   Tpath = array of TUniPos;
   TmapFile = file of TAuditory;
@@ -145,7 +145,7 @@ begin
 end;
 
 var
-  mapFile1: array[1..6] of TmapFile;
+  mapFile1: array[1..9] of TmapFile;
   temp: TAuditory;
   reading: boolean;
   Vertex: TVertexFixed;
@@ -181,7 +181,7 @@ initialization
 
   AssignFile(graphFile1, 'graph1.dat');
   reset(graphFile1);
-  for var i := 1 to 1000 do
+  for var i := 1 to 1100 do
   begin
     read(graphFile1, Vertex);
     setLength(BSUIRGraph[0][i], Vertex.size);
@@ -213,13 +213,109 @@ initialization
 
   AssignFile(graphFile1, 'graph2.dat');
   reset(graphFile1);
-  for var i := 1 to 1000 do
+  for var i := 1 to 1100 do
   begin
     read(graphFile1, Vertex);
     setLength(BSUIRGraph[1][i], Vertex.size);
     for var j := 0 to Vertex.size - 1 do
     begin
       BSUIRGraph[1][i][j] := Vertex.Vert[j];
+    end;
+  end;
+
+  //3RD BUILDING
+  SetLength(BSUIR[2], 6);
+  AssignFile(mapFile1[1], 'map3.1.dat');
+  AssignFile(mapFile1[2], 'map3.2.dat');
+  AssignFile(mapFile1[3], 'map3.3.dat');
+  AssignFile(mapFile1[5], 'map3.5.dat');
+  for var i := 1 to 5 do
+  begin
+    if i = 4 then
+      continue;
+    Reset(mapFile1[i]);
+    reading := true;
+    while not EoF(mapFile1[i]) do
+    begin
+      Read(mapFile1[i], temp);
+      AddAud(BSUIR[2][i], temp);
+    end;
+    closeFile(mapFile1[i]);
+  end;
+
+  AssignFile(graphFile1, 'graph3.dat');
+  reset(graphFile1);
+  for var i := 1 to 1100 do
+  begin
+    read(graphFile1, Vertex);
+    setLength(BSUIRGraph[2][i], Vertex.size);
+    for var j := 0 to Vertex.size - 1 do
+    begin
+      BSUIRGraph[2][i][j] := Vertex.Vert[j];
+    end;
+  end;
+  //4TH BUILDING
+  SetLength(BSUIR[3], 6);
+  AssignFile(mapFile1[1], 'map4.1.dat');
+  AssignFile(mapFile1[2], 'map4.2.dat');
+  AssignFile(mapFile1[3], 'map4.3.dat');
+  AssignFile(mapFile1[4], 'map4.4.dat');
+  AssignFile(mapFile1[5], 'map4.5.dat');
+  for var i := 1 to 5 do
+  begin
+    Reset(mapFile1[i]);
+    reading := true;
+    while not EoF(mapFile1[i]) do
+    begin
+      Read(mapFile1[i], temp);
+      AddAud(BSUIR[3][i], temp);
+    end;
+    closeFile(mapFile1[i]);
+  end;
+
+  AssignFile(graphFile1, 'graph4.dat');
+  reset(graphFile1);
+  for var i := 1 to 1100 do
+  begin
+    read(graphFile1, Vertex);
+    setLength(BSUIRGraph[3][i], Vertex.size);
+    for var j := 0 to Vertex.size - 1 do
+    begin
+      BSUIRGraph[3][i][j] := Vertex.Vert[j];
+    end;
+  end;
+  //5TH BUILDING
+  SetLength(BSUIR[4], 10);
+  AssignFile(mapFile1[1], 'map5.1.dat');
+  AssignFile(mapFile1[2], 'map5.2.dat');
+  AssignFile(mapFile1[3], 'map5.3.dat');
+  AssignFile(mapFile1[4], 'map5.4.dat');
+  AssignFile(mapFile1[5], 'map5.5.dat');
+  AssignFile(mapFile1[6], 'map5.6.dat');
+  AssignFile(mapFile1[7], 'map5.7.dat');
+  AssignFile(mapFile1[8], 'map5.8.dat');
+  AssignFile(mapFile1[9], 'map5.9.dat');
+  for var i := 1 to 5 do
+  begin
+    Reset(mapFile1[i]);
+    reading := true;
+    while not EoF(mapFile1[i]) do
+    begin
+      Read(mapFile1[i], temp);
+      AddAud(BSUIR[4][i], temp);
+    end;
+    closeFile(mapFile1[i]);
+  end;
+
+  AssignFile(graphFile1, 'graph5.dat');
+  reset(graphFile1);
+  for var i := 1 to 1100 do
+  begin
+    read(graphFile1, Vertex);
+    setLength(BSUIRGraph[4][i], Vertex.size);
+    for var j := 0 to Vertex.size - 1 do
+    begin
+      BSUIRGraph[4][i][j] := Vertex.Vert[j];
     end;
   end;
 end.

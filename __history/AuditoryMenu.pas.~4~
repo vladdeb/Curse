@@ -1,0 +1,129 @@
+unit AuditoryMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Draw, Algs, Maps,
+  Vcl.CheckLst, Vcl.Menus, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+
+type
+  TmnClassFind = class(TForm)
+    pnSearch: TPanel;
+    butSearch: TButton;
+    AudIn: TEdit;
+    butMainMenu: TButton;
+    Label1: TLabel;
+    imMap: TImage;
+    pnBuilding: TPanel;
+    lblBuilding: TLabel;
+    cmbBuilding: TComboBox;
+    pnFloor: TPanel;
+    lblFloor: TLabel;
+    cmbFloor: TComboBox;
+    procedure butMainMenuClick(Sender: TObject);
+    procedure Init(Sender: TObject);
+    procedure butSearchClick(Sender: TObject);
+    procedure ShowPos(Sender: TObject);
+    procedure cmbBuildingChange(Sender: TObject);
+    procedure cmbFloorChange(Sender: TObject);
+  private
+    { Private declarations }
+    CurMap: String;
+    Aud: String;
+  public
+    { Public declarations }
+    Prev: TForm;
+  end;
+
+var
+  mnClassFind: TmnClassFind;
+
+implementation
+{$R *.dfm}
+
+Const
+  dHeight = 39;
+  dWidth = 8;
+
+procedure TmnClassFind.butMainMenuClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TmnClassFind.butSearchClick(Sender: TObject);
+var
+  AudPos: TUniPos;
+  Found: Integer;
+begin
+  if not ValidAud(AudIn.Text) then
+  begin
+    AudIn.Text := 'Некорректный формат';
+    Exit;
+  end;
+  AudPos := SearchAud(BSUIR, AudIn.Text, Found);
+  if Found = -1 then
+    AudIn.Text := 'Аудитория не найдена'
+  else
+  begin
+    cmbBuilding.ItemIndex := AudPos.Building - 1;
+    cmbFloor.Clear;
+    for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+      cmbFloor.AddItem(Char(i + 48), nil);
+    cmbFloor.ItemIndex := AudPos.Floor - 1;
+    CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    imMap.Picture.LoadFromFile(curMap);
+    DrawCross(imMap.Canvas, AudPos.Pos.X, AudPos.Pos.Y);
+  end;
+end;
+
+procedure TmnClassFind.cmbBuildingChange(Sender: TObject);
+begin
+  cmbFloor.Clear;
+  if cmbBuilding.Text <> 'Корпус' then
+  begin
+    for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+      cmbFloor.AddItem(Char(i + 48), nil);
+    cmbFloor.ItemIndex := 0;
+    CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+    imMap.Picture.LoadFromFile(curMap);
+  end;
+end;
+
+procedure TmnClassFind.cmbFloorChange(Sender: TObject);
+begin
+  CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
+
+  imMap.Picture.LoadFromFile(curMap);
+end;
+
+procedure TmnClassFind.ShowPos(Sender: TObject);
+begin
+  Label1.Caption := IntToStr(Mouse.CursorPos.X - self.Left- dWidth) + ' ' + IntToStr(Mouse.CursorPos.Y - self.top - dHeight);
+end;
+
+
+procedure TmnClassFind.Init(Sender: TObject);
+begin
+  Show;
+  curMap := '1.1.bmp';
+  pnSearch.Width := 300;
+  imMap.Picture.LoadFromFile(curMap);
+  SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
+  SendMessage(GetWindow(cmbFloor.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
+  cmbBuilding.AddItem('1', nil);
+  cmbBuilding.AddItem('2', nil);
+  //cmbBuilding.AddItem('3', nil);
+  //cmbBuilding.AddItem('4', nil);
+  //cmbBuilding.AddItem('5', nil);
+  cmbBuilding.ItemIndex := 0;
+  for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
+    cmbFloor.AddItem(Char(i + 48), nil);
+  cmbFloor.ItemIndex := 0;
+  ClientWidth := 1500;
+  ClientHeight := 600;
+end;
+
+Initialization
+
+end.

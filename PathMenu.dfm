@@ -3,7 +3,7 @@ object mnPathFind: TmnPathFind
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'mnPathFind'
+  Caption = 'PathFind'
   ClientHeight = 704
   ClientWidth = 1044
   Color = clBtnFace
@@ -7438,9 +7438,8 @@ object mnPathFind: TmnPathFind
       Width = 183
       Height = 503
       Align = alClient
-      ExplicitLeft = 6
-      ExplicitTop = 176
-      ExplicitHeight = 533
+      ExplicitWidth = 3
+      ExplicitHeight = 15
     end
     object Label1: TLabel
       Left = 1
@@ -7469,7 +7468,6 @@ object mnPathFind: TmnPathFind
       Caption = #1053#1072#1081#1090#1080' '#1087#1091#1090#1100
       TabOrder = 0
       OnClick = butFindClick
-      ExplicitTop = 47
     end
     object butMainMenu: TButton
       Left = 1
@@ -7480,7 +7478,6 @@ object mnPathFind: TmnPathFind
       Caption = #1042' '#1075#1083#1072#1074#1085#1086#1077' '#1084#1077#1085#1102
       TabOrder = 1
       OnClick = butMainMenuClick
-      ExplicitTop = 72
     end
     object edStart: TEdit
       Left = 1
@@ -7498,7 +7495,6 @@ object mnPathFind: TmnPathFind
       ShowHint = True
       TabOrder = 2
       TextHint = #1053#1086#1084#1077#1088'-'#1050#1086#1088#1087#1091#1089'('#1053#1072#1087#1088#1080#1084#1077#1088', 213'#1072'-1)'
-      ExplicitTop = 1
     end
     object edEnd: TEdit
       Left = 1
@@ -7510,7 +7506,6 @@ object mnPathFind: TmnPathFind
       ShowHint = True
       TabOrder = 3
       TextHint = #1053#1086#1084#1077#1088'-'#1050#1086#1088#1087#1091#1089'('#1053#1072#1087#1088#1080#1084#1077#1088', 213'#1072'-1)'
-      ExplicitTop = 24
     end
     object Panel2: TPanel
       Left = 1
@@ -7520,7 +7515,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 4
-      ExplicitTop = 103
       object lblBuilding: TLabel
         Left = 0
         Top = 0
@@ -7528,8 +7522,7 @@ object mnPathFind: TmnPathFind
         Height = 24
         Align = alLeft
         Caption = #1050#1086#1088#1087#1091#1089
-        ExplicitLeft = 5
-        ExplicitTop = -6
+        ExplicitHeight = 15
       end
       object cmbBuilding: TComboBox
         Left = 80
@@ -7550,7 +7543,6 @@ object mnPathFind: TmnPathFind
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 5
-      ExplicitTop = 103
       object lblFloor: TLabel
         Left = 0
         Top = 0
@@ -7569,8 +7561,6 @@ object mnPathFind: TmnPathFind
         TabOrder = 0
         Text = 'cmbFloor'
         OnChange = cmbFloorChange
-        ExplicitLeft = 72
-        ExplicitTop = 3
       end
     end
     object chbStreet: TCheckBox
@@ -7582,8 +7572,6 @@ object mnPathFind: TmnPathFind
       Caption = #1059#1083#1080#1094#1072
       TabOrder = 6
       OnClick = chbStreetClick
-      ExplicitLeft = 6
-      ExplicitTop = 147
     end
   end
 end

@@ -70,26 +70,26 @@ begin
   begin
     Pen.Width := 3;
     pen.Color := clRed;
-    while (i < High(Path)) and not((path[i].Floor = Floor) and (path[i].Building = Building)) do
+    while (i <= High(Path)) and not((path[i].Floor = Floor) and (path[i].Building = Building)) do
       Inc(i);
-    if i <= High(Path) then
+    //if i <= High(Path) then
+    //begin
+      //MoveTo(path[i].Pos.X, path[i].Pos.Y);
+      //Inc(i);
+      //if I <= High(Path) then
+      //  ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
+    while (i <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
     begin
       MoveTo(path[i].Pos.X, path[i].Pos.Y);
       Inc(i);
-      if I <= High(Path) then
+      if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
         ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
-      while (i <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) do
-      begin
-        MoveTo(path[i].Pos.X, path[i].Pos.Y);
-        Inc(i);
-        if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
-          ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
-      end;
-      if (i <= High(Path)) then
-      begin
-        textOut(path[i].Pos.X, Path[i].Pos.Y - 10, IntToStr(Path[i].Floor) + 'Эт.');
-      end;
     end;
+    if (i <= High(Path)) then
+    begin
+      textOut(path[i].Pos.X, Path[i].Pos.Y - 10, IntToStr(Path[i].Floor) + 'Эт.');
+    end;
+    //end;
   end;
 
 end;

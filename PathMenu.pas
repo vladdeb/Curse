@@ -79,26 +79,27 @@ var
 begin
   if not ValidAud(edStart.Text) then
   begin
-    edStart.Text := 'Некорректный формат';
+    ShowMessage('Неверный формат(Номер аудитории-корпус, например, 213а-1)');
     Exit;
   end;
   if not ValidAud(edEnd.Text) then
   begin
-    edEnd.Text := 'Некорректный формат';
-    Exit;
+    ShowMessage('Неверный формат(Номер аудитории-корпус, например, 213а-1)');
+    exit;
   end;
-  SearchAud(BSUIR, edStart.Text, Foundst);
   if Foundst = -1 then
   begin
-    edStart.Text := 'Аудитория не найдена';
+    ShowMessage('Аудитория не найдена');
     exit;
   end;
   SearchAud(BSUIR, edEnd.Text, Foundfin);
   if Foundfin = -1 then
   begin
-    edEnd.Text := 'Аудитория не найдена';
-    exit;
+    ShowMessage('Аудитория не найдена');
+    Exit;
   end;
+  SearchAud(BSUIR, edStart.Text, Foundst);
+
   SStart := edStart.Text;
   SEnd := edEnd.Text;
   start := FoundSt + 100 * StrToInt(SStart[1]);
@@ -153,7 +154,12 @@ begin
     Floor := StrToInt(cmbFloor.Text);
     building := StrToInt(cmbBuilding.Text);
     CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
-    imMap.Picture.LoadFromFile(curMap);
+    try
+      imMap.Picture.LoadFromFile(curMap);
+    except
+      on EFOpenError do
+        imMap.Picture.LoadFromFile('NotAv.bmp');
+    end;
     DrawPath(imMap.Canvas, building, Floor, Path);
   end;
 end;
@@ -161,7 +167,12 @@ end;
 procedure TmnPathFind.cmbFloorChange(Sender: TObject);
 begin
   CurMap := cmbBuilding.Text + '.' + cmbFloor.Text + '.bmp';
-  imMap.Picture.LoadFromFile(curMap);
+  try
+    imMap.Picture.LoadFromFile(curMap);
+  except
+    on EFOpenError do
+      imMap.Picture.LoadFromFile('NotAv.bmp');
+    end;
   Floor := StrToInt(cmbFloor.Text);
   DrawPath(imMap.Canvas, building, Floor, Path);
 end;
@@ -177,9 +188,9 @@ begin
   SendMessage(GetWindow(cmbBuilding.Handle,GW_CHILD), EM_SETREADONLY, 1, 0);
   cmbBuilding.AddItem('1', nil);
   cmbBuilding.AddItem('2', nil);
-  //cmbBuilding.AddItem('3', nil);
-  //cmbBuilding.AddItem('4', nil);
-  //cmbBuilding.AddItem('5', nil);
+  cmbBuilding.AddItem('3', nil);
+  cmbBuilding.AddItem('4', nil);
+  cmbBuilding.AddItem('5', nil);
   cmbBuilding.ItemIndex := 0;
   for var i := 1 to Floors[StrToInt(cmbBuilding.Text)] do
     cmbFloor.AddItem(Char(i + 48), nil);
