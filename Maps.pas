@@ -49,7 +49,7 @@ procedure AddEdge(const Building: TBuilding; var Graph: TGraph; v1, v2: integer)
 const
   Floors: array[1..5] of integer = (4, 6, 5, 5, 9);
   BuildingPos: array[1..5] of integer = (2, 1, 3, 7, 5);
-  scales: TScales = (0.03, 0.02, 0.02, 0.02, 0.02);
+  scales: TScales = (0.03, 0.02, 0.02, 0.02, 0.015);
 
 var
   BSUIR: TUni;

@@ -85,9 +85,12 @@ begin
       if (I <= High(Path)) and (path[i].Floor = Floor) and (path[i].Building = Building) then
         ArrowTo(Canvas, path[i].Pos.X, path[i].Pos.Y);
     end;
-    if (i <= High(Path)) then
+    if (i <= High(Path)) and (i > 0) then
     begin
-      textOut(path[i].Pos.X, Path[i].Pos.Y - 10, IntToStr(Path[i].Floor) + 'Эт.');
+      if Path[i - 1].Building = Path[i].Building then
+        textOut(path[i - 1].Pos.X, Path[i - 1].Pos.Y, IntToStr(Path[i].Floor) + 'Эт.')
+      else
+        textOut(path[i - 1].Pos.X, Path[i - 1].Pos.Y, IntToStr(Path[i].Building) + 'Корп.')
     end;
     //end;
   end;
@@ -107,7 +110,7 @@ begin
       for var i := st to fin do
       begin
         ArrowTo(Canvas, StreetPos[i].X, StreetPos[i].Y);
-        MoveTo(StreetPos[st].X, StreetPos[st].Y);
+        MoveTo(StreetPos[i].X, StreetPos[i].Y);
       end;
     end
     else
@@ -116,7 +119,7 @@ begin
       for var i := st downto fin do
       begin
         ArrowTo(Canvas, StreetPos[i].X, StreetPos[i].Y);
-        MoveTo(StreetPos[st].X, StreetPos[st].Y);
+        MoveTo(StreetPos[i].X, StreetPos[i].Y);
       end;
     end;
   end;
